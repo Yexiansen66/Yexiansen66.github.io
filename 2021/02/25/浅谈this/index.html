@@ -6,34 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Flex-布局（二） | Hexo</title>
+  <title>this 的指向问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上一篇写了Flex的容器属性，这一篇写一写Flex的项目属性。 项目属性·order·flex-grow·flex-shrink·flex-basis·flex·align-item order定义项目的排列属性，数值越小，排列越靠前，默认为0。  .container {&amp;emsp;width: 400px;&amp;emsp;background-color: pink;&amp;emsp;display:">
+  <meta name="description" content="一、什么是 thisthis 指向对象，具体指向哪个对象是由函数的执行环境动态绑定的，不是函数声明时的环境。  function foo() {&amp;emsp;console.log(this);}  如上例所示，在 foo 函数没有运行的时候，不能判断 this 具体执行哪个对象。 二、this 指向this 指向大概可分为以下四种：·作为对象的方法调用·作为普通函数调用·通过构造函数·call,a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flex-布局（二）">
-<meta property="og:url" content="http://example.com/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
+<meta property="og:title" content="this 的指向问题">
+<meta property="og:url" content="http://example.com/2021/02/25/%E6%B5%85%E8%B0%88this/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="上一篇写了Flex的容器属性，这一篇写一写Flex的项目属性。 项目属性·order·flex-grow·flex-shrink·flex-basis·flex·align-item order定义项目的排列属性，数值越小，排列越靠前，默认为0。  .container {&amp;emsp;width: 400px;&amp;emsp;background-color: pink;&amp;emsp;display:">
+<meta property="og:description" content="一、什么是 thisthis 指向对象，具体指向哪个对象是由函数的执行环境动态绑定的，不是函数声明时的环境。  function foo() {&amp;emsp;console.log(this);}  如上例所示，在 foo 函数没有运行的时候，不能判断 this 具体执行哪个对象。 二、this 指向this 指向大概可分为以下四种：·作为对象的方法调用·作为普通函数调用·通过构造函数·call,a">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/2D402208E727484A910C2B6F3792DD36?method=download&shareKey=4042b8f91f69a1b518fe3ca68e108afa">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/12005AC5474D4CC6B5A81487756C75B1?method=download&shareKey=65f74b25dbf64f6dfc1e0ea300481dbc">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/1950062478A84317B1B11B442C6D8B96?method=download&shareKey=b1d272e8894dfaaa84c8a82db7d90cc7">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/E90EFE1E8E1345CFBBD6C443302544AD?method=download&shareKey=556b644719553a8196511bcd843c134f">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/6DB32141CCC14F1198E334768F86B34D?method=download&shareKey=198de8f243fb42c039e00c2550ef93ba">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/ADA9898DA33F4AF7886A65F35F8CDDF7?method=download&shareKey=61e7fa64d83dac00c691210bf6f69ef0">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/DB86F970AF2C434180B1AB1FB16171E5?method=download&shareKey=59ff49f0835879c4498e14c411143791">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/005AEBDAD6E541EDB179AA181556F6D4?method=download&shareKey=cf65b2acea2f58d12ae914ad0f34a4f4">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/3B81033BA9824BDA89625B86F5325112?method=download&shareKey=f978d987291b6cde7dd54898192a0495">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/3AEB90D79AC349CD9C83588927478EB3?method=download&shareKey=57a2ca510064093fbf4a3942eab376ac">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/29207FB423E74AC6BB1D1B724E98B613?method=download&shareKey=c115472e67f9bb17aff7a18a276939ee">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/2B647EB3162F42D5892DB2980EE30BB0?method=download&shareKey=f5d8cd634613181a6c28d8edd03dcb1d">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/99D7649AE4D542E0993D369FD65DDE5C?method=download&shareKey=2f33700a4d98d2dd01079495d8db40bb">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/8A4CD93BFA844750BCAE5CA4E08D3DC1?method=download&shareKey=6d1e77f426e7101c9fd64caa625c73e7">
-<meta property="article:published_time" content="2021-02-22T01:21:08.000Z">
-<meta property="article:modified_time" content="2021-02-22T14:23:36.301Z">
+<meta property="article:published_time" content="2021-02-25T07:48:47.000Z">
+<meta property="article:modified_time" content="2021-02-25T13:09:18.284Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/2D402208E727484A910C2B6F3792DD36?method=download&shareKey=4042b8f91f69a1b518fe3ca68e108afa">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -169,92 +154,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Flex-布局（二）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-浅谈this" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Flex-布局（二）
+      this 的指向问题
     </h1>
   
 
         
-        <a href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-22T01:21:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
+        <a href="/2021/02/25/%E6%B5%85%E8%B0%88this/" class="archive-article-date">
+  	<time datetime="2021-02-25T07:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>上一篇写了Flex的容器属性，这一篇写一写Flex的项目属性。</p>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><p>·order<br>·flex-grow<br>·flex-shrink<br>·flex-basis<br>·flex<br>·align-item</p>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>定义项目的排列属性，数值越小，排列越靠前，默认为0。</p>
+        <h2 id="一、什么是-this"><a href="#一、什么是-this" class="headerlink" title="一、什么是 this"></a>一、什么是 this</h2><p>this 指向对象，具体指向哪个对象是由函数的执行环境动态绑定的，不是函数声明时的环境。</p>
 <blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>&emsp;height: 120px;<br>&emsp;justify-content: space-around;<br>&emsp;align-items: center;<br>    }<br>  .first, .second, .third {<br>&emsp;width: 100px;<br>&emsp;height: 80px;<br>&emsp;font-size: 24px;<br>&emsp;color: white;<br>&emsp;text-align: center;<br>    }<br>  .first {<br>&emsp;background-color: red;<br>    }<br>  .second {<br>&emsp;background-color: green;<br>    }<br>  .third {<br>&emsp;background-color: skyblue;<br>    }</p>
+<p>function foo() {<br>&emsp;console.log(this);<br>}</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/2D402208E727484A910C2B6F3792DD36?method=download&shareKey=4042b8f91f69a1b518fe3ca68e108afa" alt="order"></p>
-<p>当给项目设置为数值大小,将A，B，C按照C，B，A排序。</p>
+<p>如上例所示，在 foo 函数没有运行的时候，不能判断 this 具体执行哪个对象。</p>
+<h2 id="二、this-指向"><a href="#二、this-指向" class="headerlink" title="二、this 指向"></a>二、this 指向</h2><p>this 指向大概可分为以下四种：<br>·作为对象的方法调用<br>·作为普通函数调用<br>·通过构造函数<br>·call,apply,bind</p>
+<h3 id="1-作为对象的方法调用"><a href="#1-作为对象的方法调用" class="headerlink" title="1.作为对象的方法调用"></a>1.作为对象的方法调用</h3><p>通过对象方法调用，this指向该对象。</p>
 <blockquote>
-<p>.first {<br>&emsp;background-color: red;<br>&emsp;order: 2;<br>}<br>.second {<br>&emsp;background-color: green;<br>&emsp;order: 1;<br>}</p>
+<p>window.name = ‘window’;<br>    var obj = {<br>&emsp;name: ‘aObj’,<br>&emsp;fn: function() {<br>&emsp;&emsp;console.log(this.name); &emsp;//aObj<br>&emsp;&emsp;console.log(this === obj); &emsp;//true<br>&emsp;}<br>    }<br>    obj.fn();</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/12005AC5474D4CC6B5A81487756C75B1?method=download&shareKey=65f74b25dbf64f6dfc1e0ea300481dbc" alt="order-reverse"></p>
-<h3 id="flex-grow-amp-amp-flex-shrink"><a href="#flex-grow-amp-amp-flex-shrink" class="headerlink" title="flex-grow &amp;&amp; flex-shrink"></a>flex-grow &amp;&amp; flex-shrink</h3><h3 id="flex-grow-属性是定义剩余空间如何分配"><a href="#flex-grow-属性是定义剩余空间如何分配" class="headerlink" title="flex-grow 属性是定义剩余空间如何分配"></a>flex-grow 属性是定义剩余空间如何分配</h3><p><img src="https://note.youdao.com/yws/api/personal/file/1950062478A84317B1B11B442C6D8B96?method=download&shareKey=b1d272e8894dfaaa84c8a82db7d90cc7" alt="剩余空间"></p>
-<p>被子盒子占有的空间为占有空间，粉色的空出的空间就是剩余空间，<br>flex-grow 的默认值为0，即不瓜分剩余空间。<br>flex-grow 的计算公式：<br>剩余空间：x;<br>A,B,C三个子元素的flex-grow的值是：a, b, c<br>每个子元素瓜分的剩余空间为：a/(a+b+c)*x, b/(a+b+c)*x, c/(a+b+c)*x</p>
+<h3 id="2-作为普通函数调用"><a href="#2-作为普通函数调用" class="headerlink" title="2.作为普通函数调用"></a>2.作为普通函数调用</h3><p>函数不作为对象的方法调用，即作为普通函数调用，this指向全局对象，在浏览器的javaScript里，这个全局对象是window对象。</p>
 <blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;height: 100px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>    }<br>    .container &gt; div {<br>&emsp;height: 50px;<br>    }<br>    .a {<br>&emsp;background-color: green;<br>&emsp;width: 50px;<br>&emsp;flex-grow: 1;<br>    }<br>    .b {<br>&emsp;background-color: red;<br>&emsp;width: 100px;<br>&emsp;flex-grow: 2;<br>    }<br>    .c {<br>&emsp;background-color: skyblue;<br>&emsp;width: 150px;<br>&emsp;flex-grow: 3;<br>    }</p>
+<p>window.name = “window”;<br>function foo() {<br>&emsp;console.log(this.name);<br>}<br>foo(); &emsp;//window</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/E90EFE1E8E1345CFBBD6C443302544AD?method=download&shareKey=556b644719553a8196511bcd843c134f" alt="flex-grow"></p>
-<p>如上例子，剩余空间宽度为 400-（50+100+150）=100px;A元素所瓜分的剩余空间：1 /(1+2+3)*100 = 16.67,总宽度为占有宽度加瓜分的剩余宽度：50+16.67=66.67。</p>
-<p>当子元素的flex-grow值的和小于1时，没有瓜分全部的剩余空间，计算公式的分母改为1。<br>假如容器宽度为400px,项目A,B,C三个元素的宽度为100px,A,B,C的flex-grow值分别为0.1, 0.2, 0.3,则A容器的宽度为：0.1/1 * (400 - 300) + 100 = 110px。</p>
 <blockquote>
-<p>  .container {<br>&emsp;width: 400px;<br>&emsp;height: 100px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>    }<br>    .container &gt; div {<br>&emsp;height: 50px;<br>    }<br>    .a {<br>&emsp;width: 100px;<br>&emsp;background-color: green;<br>&emsp;flex-shrink: 1;<br>    }<br>    .b {<br>&emsp;width: 200px;<br>&emsp;background-color: red;<br>&emsp;flex-shrink: 2;<br>    }<br>    .c {<br>&emsp;width: 300px;<br>&emsp;background-color: skyblue;<br>&emsp;flex-shrink: 3;<br>    }</p>
+<p>window.name = ‘window’<br>    function foo() {<br>&emsp;var name = ‘foo’;<br>&emsp;function sayName() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>&emsp;sayName();<br>    }<br>    foo(); &emsp;//window<br>如上，调用函数foo，执行sayName函数，函数sayName虽然在函数foo的作用域中，但仍然是作为普通函数调用，因此sayName中的this指向window。</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/6DB32141CCC14F1198E334768F86B34D?method=download&shareKey=198de8f243fb42c039e00c2550ef93ba" alt="flex-grow&lt;1"></p>
-<h3 id="flex-shrink-是对溢出空间进行处理"><a href="#flex-shrink-是对溢出空间进行处理" class="headerlink" title="flex-shrink 是对溢出空间进行处理."></a>flex-shrink 是对溢出空间进行处理.</h3><p>当子元素的总长度大于父元素的长度时，子元素就会溢出，如图中的蓝色部分。<br><img src="https://note.youdao.com/yws/api/personal/file/ADA9898DA33F4AF7886A65F35F8CDDF7?method=download&shareKey=61e7fa64d83dac00c691210bf6f69ef0" alt="溢出空间"></p>
-<p>flex-shrink 的默认值为0，即不进行压缩。<br>flex-shrink 计算方式：<br>假设容器的宽度为400px，有A,B,C三个元素，宽度为100px，200px，300px,flex-shrink的值分别为：1，2，3。<br>溢出空间宽度：x (子元素宽度总和减去父元素的宽度) = (100+200+300) - 400 = 200;<br>压缩率：sum = 100*1+200*2+300*3 = 1400。<br>A的压缩率为：sum1 = 100*1/1400。<br>A压缩的宽度等于溢出空间宽度乘以压缩率：200 * (100*1/1400)。<br>A的宽度：100-200*(100*1/1400)=85.72。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/DB86F970AF2C434180B1AB1FB16171E5?method=download&shareKey=59ff49f0835879c4498e14c411143791" alt="flex-shrink&lt;0"></p>
-<p>当flex-shrink的总和小于1时，例如：容器的宽度为400px,项目A,B,C的宽度分别为：100px, 200px, 300px；flex-shrink值分别为：0.1, 0.2, 0.3。<br>此时溢出空间并没有全部被压缩，被压缩的宽度为：（0.1+0.2+0.3)/1 * （600-400）=120。<br>压缩率为：sum = 0.1*100+0.2*200+0.3*300 = 140。<br>A的压缩宽度为：0.1 * 100 / 140 * 120 = 8.571。<br>A压缩后的宽度为：100-8.751 = 91.43(图片显示为91.42,应该是与四舍五入有关,如果错误，请指正)。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/005AEBDAD6E541EDB179AA181556F6D4?method=download&shareKey=cf65b2acea2f58d12ae914ad0f34a4f4" alt="flex-shrink"></p>
-<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>flex-basis 在MDN上的解释是：指定了flex元素在主轴方向上的初始大小。<br>例如，设置项目的flex-basis: 200px，就是在项目没有放进容器的时候，宽度是200px，当项目被放到容器中时，会受到容器的宽度，flow-grow,flow-shrink等属性的影响，如果不受到这些属性的影响，放在项目中的宽度与flex-basis的初始值相同。</p>
-<p>flex-basis的基本使用：</p>
 <blockquote>
-<p>.container {<br>&emsp;display: flex;<br>&emsp;width: 400px;<br>&emsp;border: 3px solid #000;<br>    }<br>    .item {<br>&emsp;flex-basis: 100px;<br>&emsp;height: 100px;<br>    }<br>    .green {<br>&emsp;background-color: green;<br>    }<br>    .purple {<br>&emsp;background-color: purple;<br>    }<br>    .yellow {<br>&emsp;background-color: yellow;<br>    }</p>
+<p>window.name = “window”<br>    var obj = {<br>&emsp;name: ‘aObj’,<br>&emsp;sayName: function() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    var sayName = obj.sayName;<br>    sayName(); &emsp;//window<br>如上，sayName 引用了obj.sayName方法，相当于sayName = function () { console.log(this.name) }，sayName() 仍是作为普通函数调用，因此sayName中的this指向window。</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/3B81033BA9824BDA89625B86F5325112?method=download&shareKey=f978d987291b6cde7dd54898192a0495" alt="flex-basis"></p>
-<p>给项目添加flex-grow属性：</p>
+<h3 id="三、通过构造函数"><a href="#三、通过构造函数" class="headerlink" title="三、通过构造函数"></a>三、通过构造函数</h3><p>通过构函数数，this 一般指向新创建的对象。</p>
 <blockquote>
-<p>.item {<br>&emsp;flex-basis: 100px;<br>&emsp;height: 100px;<br>&emsp;flex-grow: 1;<br>    }</p>
+<p>function Fun(name) {<br>&emsp;this.name = name;<br>&emsp;this.sayName = function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    var obj = new Fun(‘foo’);<br>    obj.sayName(); &emsp;//foo</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/3AEB90D79AC349CD9C83588927478EB3?method=download&shareKey=57a2ca510064093fbf4a3942eab376ac" alt="flex-basis"></p>
-<p>flex-grow属性改变剩余空间的分配，也改变了项目的宽度。</p>
-<p>flex-basis属性与width的关系：</p>
+<p>当构造函数返回一个对象的时候，this指向返回的对象。</p>
 <blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;border: 3px solid #000;<br>&emsp;display: flex;<br>    }<br>    .item {<br>&emsp;height: 100px;<br>&emsp;flex-basis: 100px;<br>    }<br>    .green {<br>&emsp;width: 200px;<br>&emsp;background-color: green;<br>    }<br>    .red {<br>&emsp;background-color: red;<br>    }<br>    .blue {<br>&emsp;background-color: blue;<br>    }</p>
+<p>function Fun(name) {<br>&emsp;this.name = name;<br>&emsp;this.sayName = function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>&emsp;return {<br>&emsp;&emsp;name: ‘yexiansen’,<br>&emsp;&emsp;sayName: function () {<br>&emsp;&emsp;&emsp;console.log(this.name);<br>&emsp;&emsp;}<br>&emsp;}<br>    }<br>    var obj = new Fun(‘foo’);<br>    obj.sayName(); &emsp;//Yexiansen</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/29207FB423E74AC6BB1D1B724E98B613?method=download&shareKey=c115472e67f9bb17aff7a18a276939ee" alt="width|flex-basis"></p>
-<p>项目的flex-basis设置为100px，green项目的width设置为200px，项目的width属性被忽略时，显示仍为100px,所以项目的flex-basis属性的优先级高于width。</p>
-<p>修改green项目属性为max-width:</p>
+<h3 id="call-apply-amp-amp-bind"><a href="#call-apply-amp-amp-bind" class="headerlink" title="call,apply&amp;&amp;bind"></a>call,apply&amp;&amp;bind</h3><p>可以通过Function.prototype.call,Function.prototype.apply和Function.prototype.bind改变this指向。<br>call 和 apply 是立即执行执行，call(arg1, arg2, arg3,….)和apply(arg1, arg2)的第一个参数是this的指向，call() 方法接受的是若干个参数，apply()方法接受的是包含若干个参数的数组。</p>
 <blockquote>
-<p>.green {<br>&emsp;max-width: 50px;<br>&emsp;background-color: green;<br>    }</p>
+<p>function Person(age, height) {<br>&emsp;this.age =  age;<br>&emsp;this.height = height;<br>&emsp;console.log(this.name, this.age, this.height);<br>    }<br>    var obj = {<br>&emsp;name: ‘xiaohu’<br>    }<br>    Person.call(obj, 18, 1.88); &emsp;//xiaohu 18 1.88</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/2B647EB3162F42D5892DB2980EE30BB0?method=download&shareKey=f5d8cd634613181a6c28d8edd03dcb1d" alt="max-width"></p>
-<p>由此可见，max-width属性的优先级大于flex-basis。</p>
-<p>修改green项目属性为min-width:</p>
+<p>call 将 this 指向obj,因此console.log(this.name)等同于打印console.log(obj.name),因此打印出xiaohu。</p>
+<p>apply的第二个参数为数组：<br>Person.apply(obj, [18, 1.88]) 等同于Person.call(obj, 18, 1.88);</p>
+<p>bind 返回一个新的函数，新函数对原函数没有影响。</p>
 <blockquote>
-<p>.green {<br>  &emsp;min-width: 150px;<br>  &emsp;background-color: green;<br>}</p>
+<p>window.name = ‘window’;<br>    var obj = {<br>&emsp;name: ‘foo’,<br>&emsp;sayName: function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    //this 指向对象obj<br>    obj.sayName(); &emsp;//foo<br>    //this丢失 指向window<br>    var sayName = obj.sayName;<br>    sayName(); &emsp;//window<br>    // 通过bind将this指向对象obj<br>    var boundSayName = sayName.bind(obj);<br>    boundSayName(); &emsp;//foo</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/99D7649AE4D542E0993D369FD65DDE5C?method=download&shareKey=2f33700a4d98d2dd01079495d8db40bb" alt="min-width"></p>
-<p>由此可见，min-width属性的优先级大于flex-basis。</p>
-<p>综上所述，几个属性的优先级排列为：max-width/min-width &gt; flex-basis &gt; width。</p>
-<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>是flex-grow,flex-shrink,flex-basis的缩写。</p>
-<blockquote>
-<p>.box {<br>&emsp;flex: flex-grow | flex-shrink | flex-basis;<br>}</p>
-</blockquote>
-<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>定义单个项目的对齐方式，可以覆盖align-items属性，默认值为auto,表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br>.item {<br>  align-self: auto | flex-start | flex-end | center | baseline | stretch<br>}<br><img src="https://note.youdao.com/yws/api/personal/file/8A4CD93BFA844750BCAE5CA4E08D3DC1?method=download&shareKey=6d1e77f426e7101c9fd64caa625c73e7" alt="align-self"></p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis">https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904016439148551">https://juejin.cn/post/6844904016439148551</a><br><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
+<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>javaScript中this指向是由执行环境决定的，大致可分为四种情况：<br>·作为函数的方法调用，this指向该对象。<br>·作为普通函数调用，this指向全局window。<br>·通过构造函数，一般指向新的对象；当构造函数中显性的返回一个对象的时候，this指向该对象。<br>·可以通过call,apply,bind改变this的指向。</p>
+<h3 id="五、参考文献"><a href="#五、参考文献" class="headerlink" title="五、参考文献"></a>五、参考文献</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6922800009620815885">this揭秘</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6917256526541357069">this浅谈</a></p>
 
       
 
@@ -334,7 +293,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/02/25/%E6%B5%85%E8%B0%88this/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -348,18 +307,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/02/25/%E6%B5%85%E8%B0%88this/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          this 的指向问题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Flex 布局（一）</div>
+    <a href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Flex-布局（二）</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -152,6 +152,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浅谈this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/25/%E6%B5%85%E8%B0%88this/">this 的指向问题</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/25/%E6%B5%85%E8%B0%88this/" class="archive-article-date">
+  	<time datetime="2021-02-25T07:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、什么是-this"><a href="#一、什么是-this" class="headerlink" title="一、什么是 this"></a>一、什么是 this</h2><p>this 指向对象，具体指向哪个对象是由函数的执行环境动态绑定的，不是函数声明时的环境。</p>
+<blockquote>
+<p>function foo() {<br>&emsp;console.log(this);<br>}</p>
+</blockquote>
+<p>如上例所示，在 foo 函数没有运行的时候，不能判断 this 具体执行哪个对象。</p>
+<h2 id="二、this-指向"><a href="#二、this-指向" class="headerlink" title="二、this 指向"></a>二、this 指向</h2><p>this 指向大概可分为以下四种：<br>·作为对象的方法调用<br>·作为普通函数调用<br>·通过构造函数<br>·call,apply,bind</p>
+<h3 id="1-作为对象的方法调用"><a href="#1-作为对象的方法调用" class="headerlink" title="1.作为对象的方法调用"></a>1.作为对象的方法调用</h3><p>通过对象方法调用，this指向该对象。</p>
+<blockquote>
+<p>window.name = ‘window’;<br>    var obj = {<br>&emsp;name: ‘aObj’,<br>&emsp;fn: function() {<br>&emsp;&emsp;console.log(this.name); &emsp;//aObj<br>&emsp;&emsp;console.log(this === obj); &emsp;//true<br>&emsp;}<br>    }<br>    obj.fn();</p>
+</blockquote>
+<h3 id="2-作为普通函数调用"><a href="#2-作为普通函数调用" class="headerlink" title="2.作为普通函数调用"></a>2.作为普通函数调用</h3><p>函数不作为对象的方法调用，即作为普通函数调用，this指向全局对象，在浏览器的javaScript里，这个全局对象是window对象。</p>
+<blockquote>
+<p>window.name = “window”;<br>function foo() {<br>&emsp;console.log(this.name);<br>}<br>foo(); &emsp;//window</p>
+</blockquote>
+<blockquote>
+<p>window.name = ‘window’<br>    function foo() {<br>&emsp;var name = ‘foo’;<br>&emsp;function sayName() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>&emsp;sayName();<br>    }<br>    foo(); &emsp;//window<br>如上，调用函数foo，执行sayName函数，函数sayName虽然在函数foo的作用域中，但仍然是作为普通函数调用，因此sayName中的this指向window。</p>
+</blockquote>
+<blockquote>
+<p>window.name = “window”<br>    var obj = {<br>&emsp;name: ‘aObj’,<br>&emsp;sayName: function() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    var sayName = obj.sayName;<br>    sayName(); &emsp;//window<br>如上，sayName 引用了obj.sayName方法，相当于sayName = function () { console.log(this.name) }，sayName() 仍是作为普通函数调用，因此sayName中的this指向window。</p>
+</blockquote>
+<h3 id="三、通过构造函数"><a href="#三、通过构造函数" class="headerlink" title="三、通过构造函数"></a>三、通过构造函数</h3><p>通过构函数数，this 一般指向新创建的对象。</p>
+<blockquote>
+<p>function Fun(name) {<br>&emsp;this.name = name;<br>&emsp;this.sayName = function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    var obj = new Fun(‘foo’);<br>    obj.sayName(); &emsp;//foo</p>
+</blockquote>
+<p>当构造函数返回一个对象的时候，this指向返回的对象。</p>
+<blockquote>
+<p>function Fun(name) {<br>&emsp;this.name = name;<br>&emsp;this.sayName = function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>&emsp;return {<br>&emsp;&emsp;name: ‘yexiansen’,<br>&emsp;&emsp;sayName: function () {<br>&emsp;&emsp;&emsp;console.log(this.name);<br>&emsp;&emsp;}<br>&emsp;}<br>    }<br>    var obj = new Fun(‘foo’);<br>    obj.sayName(); &emsp;//Yexiansen</p>
+</blockquote>
+<h3 id="call-apply-amp-amp-bind"><a href="#call-apply-amp-amp-bind" class="headerlink" title="call,apply&amp;&amp;bind"></a>call,apply&amp;&amp;bind</h3><p>可以通过Function.prototype.call,Function.prototype.apply和Function.prototype.bind改变this指向。<br>call 和 apply 是立即执行执行，call(arg1, arg2, arg3,….)和apply(arg1, arg2)的第一个参数是this的指向，call() 方法接受的是若干个参数，apply()方法接受的是包含若干个参数的数组。</p>
+<blockquote>
+<p>function Person(age, height) {<br>&emsp;this.age =  age;<br>&emsp;this.height = height;<br>&emsp;console.log(this.name, this.age, this.height);<br>    }<br>    var obj = {<br>&emsp;name: ‘xiaohu’<br>    }<br>    Person.call(obj, 18, 1.88); &emsp;//xiaohu 18 1.88</p>
+</blockquote>
+<p>call 将 this 指向obj,因此console.log(this.name)等同于打印console.log(obj.name),因此打印出xiaohu。</p>
+<p>apply的第二个参数为数组：<br>Person.apply(obj, [18, 1.88]) 等同于Person.call(obj, 18, 1.88);</p>
+<p>bind 返回一个新的函数，新函数对原函数没有影响。</p>
+<blockquote>
+<p>window.name = ‘window’;<br>    var obj = {<br>&emsp;name: ‘foo’,<br>&emsp;sayName: function () {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    //this 指向对象obj<br>    obj.sayName(); &emsp;//foo<br>    //this丢失 指向window<br>    var sayName = obj.sayName;<br>    sayName(); &emsp;//window<br>    // 通过bind将this指向对象obj<br>    var boundSayName = sayName.bind(obj);<br>    boundSayName(); &emsp;//foo</p>
+</blockquote>
+<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>javaScript中this指向是由执行环境决定的，大致可分为四种情况：<br>·作为函数的方法调用，this指向该对象。<br>·作为普通函数调用，this指向全局window。<br>·通过构造函数，一般指向新的对象；当构造函数中显性的返回一个对象的时候，this指向该对象。<br>·可以通过call,apply,bind改变this的指向。</p>
+<h3 id="五、参考文献"><a href="#五、参考文献" class="headerlink" title="五、参考文献"></a>五、参考文献</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6922800009620815885">this揭秘</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6917256526541357069">this浅谈</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/25/%E6%B5%85%E8%B0%88this/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Flex-布局（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
