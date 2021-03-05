@@ -152,6 +152,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-原型继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/03/%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF/">JS继承</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/03/%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF/" class="archive-article-date">
+  	<time datetime="2021-03-03T02:06:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇讲了原型和原型链，这篇来讲一讲一讲继承。</p>
+<h2 id="一、原型链继承"><a href="#一、原型链继承" class="headerlink" title="一、原型链继承"></a>一、原型链继承</h2><p>原型链是将父类的实例当做子类的原型。</p>
+<blockquote>
+<p>function Parent() {<br>&emsp;this.name = “parent”;<br>&emsp;this.hobby = “game”;<br>&emsp;this.future = [“sound”, “read”];<br>    }<br>    Parent.prototype.sayHi = function () {<br>&emsp;console.log(“sayHi”);<br>    }<br>    function Child() {<br>&emsp;this.name = “child”;<br>    }<br>    //将Child的原型属性指向Parent实例<br>    Child.prototype = new Parent();<br>    //修正Child.prototype.constructor指向<br>    Child.prototype.constructor = Child;<br>    var child1 = new Child();<br>    child1.sayHi(); // sayHi<br>    var child2 = new Child();<br>    child2.sayHi(); // sayHi</p>
+</blockquote>
+<p>原型链继承优缺点：<br>优点：父类方法可以复用。上例中在 Parent 实例的原型中声明了 sayHi 方法，实例 child1，child2 都可以使用同一个函数。<br>缺点：<br>1.子类共享父类的引用属性（Object, Array, Function, Date, RegExp)，更改一个子类的引用属性，其他的子类属性也会被更改，如下图：</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/AFCF824401A241A2A2FFAE73ECB57DC3?method=download&shareKey=b5d9e6623204310ca443065695aa65d7" alt="原型继承"></p>
+<p>先打印child1的future属性，再修改child2的future属性，再查看child1的future属性，已经被修改。<br>2.创建子类型时，不能像父类的构造函数中传递参数。</p>
+<h2 id="二、构造函数继承"><a href="#二、构造函数继承" class="headerlink" title="二、构造函数继承"></a>二、构造函数继承</h2><blockquote>
+<p>function Parent(name) {<br>&emsp;this.name = name;<br>&emsp;this.future = [“read”, “write”]<br>    }<br>    Parent.prototype.sayName = function () {<br>&emsp;console.log(this.name)<br>    }<br>    function Child(name, age) {<br>&emsp;Parent.call(this, name);<br>&emsp;this.age = age;<br>    }<br>    Child.prototype = new Parent();<br>    Child.prototype.constructor = Child;<br>    var child1 = new Child(“xiaoming”, 18);<br>    console.log(child1.future); //[“read”, “write”]<br>    child1.future.push(“speak”);<br>    console.log(child1.future); //[“read”, “write”, “speak”]<br>    var child2 = new Child(“xiaohu”, 22);<br>    console.log(child2.future); //[“read”, “write”]</p>
+</blockquote>
+<p>优点：1.可以在子类构造函数中，像父类传递参数。上例中，通过向父类中 传入 name 属性，得到不同的子类。<br>2.父类的引用属性不会被共享。上例中 child1 的 future 属性更改，child2 的 future 属性不会更改。<br>缺点：子类实例不能使用父类原型对象（Parent.prototype）上的方法。</p>
+<h2 id="三、组合继承"><a href="#三、组合继承" class="headerlink" title="三、组合继承"></a>三、组合继承</h2><blockquote>
+<p>function Parent(name) {<br>&emsp;this.name = name;<br>&emsp;this.future = [“write”, “speak”];<br>    }<br>    Parent.prototype.sayName = function() {<br>&emsp;console.log(this.name);<br>    }<br>    function Child(name, age) {<br>&emsp;Parent.call(this, name);<br>&emsp;// this.Parent(name);<br>&emsp;this.age = age;<br>    }<br>    Child.prototype = new Parent();<br>    Child.prototype.constructor = Child;<br>    Child.prototype.sayAge = function() {<br>&emsp;console.log(this.age)<br>    }<br>    var child1 = new Child(“xiaoming”, 18);<br>    child1.sayName(); // xiaoming<br>    child1.sayAge();  // 18<br>    child1.future.push(“read”);<br>    console.log(child1.future); //[“write”, “speak”, “read”]<br>    var child2 = new Child(“xiaohu”, 19);<br>    child2.sayName(); // xiaohu<br>    child2.sayAge(); //19<br>    console.log(child2.future) //[“write”, “speak”]</p>
+</blockquote>
+<p>组合继承是将原型链继承和借用构造函数继承的优点结合起来，用原型链来继承父类原型上的属性和方法，通过构造函数来继承父类的实例属性。<br>优点：1.子类可以共享父类的方法。<br>2.子类可以向父类构造函数中传递参数，使每个实例都有自己的属性。<br>3.父类的引用属性不会被共享。</p>
+<p>缺点：无论什么时候，都会调用两个父类的构造函数。<br>第一次调用是在将子类原型指向父类时执行的（Child.prototype = new Parent()）；<br>第二次调用是在创建子类实例的时候执行的（Parent.call(this, name)）。</p>
+<h2 id="四、原型式继承"><a href="#四、原型式继承" class="headerlink" title="四、原型式继承"></a>四、原型式继承</h2><blockquote>
+<p>function object(obj) {<br>&emsp;function Fun() {};<br>&emsp;Fun.prototype = obj;<br>&emsp;return new Fun();<br>    }<br>    let person = {<br>&emsp;name: ‘yexiansen’,<br>&emsp;future: [“write”, “read”],<br>&emsp;sayName: function() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    let person1 = object(person);<br>    person1.name = “xiaoming”;<br>    person1.future.push(‘speak’);<br>    person1.sayName(); // xiaoming<br>    console.log(person1.future); //[“write”, “read”, “speak”]<br>    let person2 = object(person);<br>    person2.name = “xiaohu”<br>    person2.sayName(); // xiaohu<br>    console.log(person2.future); //[“write”, “read”, “speak”]</p>
+</blockquote>
+<p>原型式继承，先创建了一个 object 函数，传入一个对象作为参数，在函数内创建一个构造函数，并把构造函数的原型指向传入的对象，返回一个构造函数的实例，再给实例增添新的属性和方法。</p>
+<p>优点：可以共享父类（parent）的方法。<br>缺点：1.子类共享父类的引用属性。<br>2.不能向父类传递参数。</p>
+<h2 id="五、寄生式继承"><a href="#五、寄生式继承" class="headerlink" title="五、寄生式继承"></a>五、寄生式继承</h2><blockquote>
+<p>function object(obj) {<br>&emsp;function Fun(){};<br>&emsp;Fun.prototype = obj;<br>&emsp;return new Fun();<br>    }<br>    function objectClone(obj) {<br>&emsp;var objClone = object(obj);<br>&emsp;obj.sayAge = function () {<br>&emsp;&emsp;console.log(this.age);<br>&emsp;}<br>&emsp;return objClone;<br>    }<br>    let person = {<br>&emsp;name: “xiaohu”,<br>&emsp;age: 19,<br>&emsp;future: [“write”, “read”],<br>&emsp;sayName: function() {<br>&emsp;&emsp;console.log(this.name);<br>&emsp;}<br>    }<br>    var person1 = objectClone(person);<br>    person1.sayAge(); //19<br>    person1.sayName(); //xiaohu<br>    console.log(person1.future); //[“write”, “read”]<br>    person1.future.push(“speak”);<br>    var person2 = objectClone(person);<br>    console.log(person2.future); //[“write”, “read”, “speak”]</p>
+</blockquote>
+<p>寄生式继承相比于原型式继承，多了个封装函数（这个例子中时objectClone），可以用来给对象增添新的属性和方法。</p>
+<h2 id="6、寄生组合式继承"><a href="#6、寄生组合式继承" class="headerlink" title="6、寄生组合式继承"></a>6、寄生组合式继承</h2><p>寄生组合式继承，通过借用构造函数来继承属性，通过原型链来继承方法。</p>
+<blockquote>
+<p>function object(obj) {<br>&emsp;function Fun(){};<br>&emsp;Fun.prototype = obj;<br>&emsp;return new Fun();<br>    }<br>    function inheritPrototype(child, parent) {<br>&emsp;var prototype = object(parent.prototype);<br>&emsp;child.prototype.constructor = child;<br>&emsp;child.prototype = prototype;<br>    }<br>    function Parent(name) {<br>&emsp;this.name = name;<br>&emsp;this.future = [“write”, “read”]<br>    }<br>    Parent.prototype.sayName = function() {<br>&emsp;console.log(this.name);<br>    }<br>    function Child(name, age) {<br>&emsp;Parent.call(this, name);<br>&emsp;this.age = age;<br>    }<br>    inheritPrototype(Child, Parent);<br>    Child.prototype.sayAge = function() {<br>&emsp;console.log(this.age);<br>    }<br>    var child1 = new Child(“xiaoming”, 18);<br>    child1.sayName(); //xiaoming<br>    child1.sayAge(); //18<br>    child1.future.push(“speak”);<br>    console.log(child1.future); //[“write”, “read”, “speak”]<br>    var child2 = new Child(“xiaohu”, 22);<br>    child2.sayName(); //xiaohu<br>    child2.sayAge(); //22<br>    console.log(child2.future); //[“write”, “read”]</p>
+</blockquote>
+<p>寄生式组合继承，通过 inheritPrototype 函数实现了子类对父类的继承，解决了组合继承方式中父类构造函数被调用两次的问题。<br>优点：1.父类原型上的方法可以复用。<br>2.可以向父类传递参数。<br>3.父类的引用属性不会因为一个子类的更改而影响到其他子类。<br>4.只调用一次的父类构造函数。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上实现了几种继承的方式，这些继承的方式，大多基于原型链和构造函数，所以只有理解继承和构造函数，才能更好的理解继承，如果不能很好的理解继承，建议再仔细的琢磨一下原型。附上图片仅供参考：<br><img src="https://note.youdao.com/yws/api/personal/file/11BA1545AF684AC5BDC3C14198858D6A?method=download&shareKey=bbfff26dab75b829d7a7706aded054ef" alt="yuanxing"></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6914216540468576263">JS继承 原型链继承、构造函数继承、组合继承、原型继承、寄生式继承、寄生组合继承</a><br>《JavaScript高级程序设计（第三版）》</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/03/%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-原型与原型链" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
