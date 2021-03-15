@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>BFC及其应用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+  <meta name="description" content="今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。 产生 BFC 的条件1.根元素(html)2.float 的值不为 none3.position 的值为 absolute 或者 fixed4.display 的值为 inlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFC及其应用">
+<meta property="og:url" content="http://example.com/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。 产生 BFC 的条件1.根元素(html)2.float 的值不为 none3.position 的值为 absolute 或者 fixed4.display 的值为 inlin">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB272dfcc310495f3a7fd3e3a0adb989e9?method=download&shareKey=89ec139f677d0bfe631fcbb6d654fb11">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB8c6d470b8240e3cca84e15afa550d2ab?method=download&shareKey=a69e1638a49573dd17bc09b8e9bad2ce">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB94841a615eb140d7861fe1a10e988f9c?method=download&shareKey=5098ca2314d011958ca9e0a0b567e0ff">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd2440ff1e8da5ceec41bfad362e1172e?method=download&shareKey=2ff20ca1737b59a1b074fcb0ac38d334">
+<meta property="article:published_time" content="2021-03-15T09:02:02.000Z">
+<meta property="article:modified_time" content="2021-03-15T09:08:01.772Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,295 +160,180 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-BFC及其应用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      BFC及其应用
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="archive-article-date">
+
+        
+        <a href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="archive-article-date">
   	<time datetime="2021-03-15T09:02:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/">BFC及其应用</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。</p>
+<h2 id="产生-BFC-的条件"><a href="#产生-BFC-的条件" class="headerlink" title="产生 BFC 的条件"></a>产生 BFC 的条件</h2><p>1.根元素(html)<br>2.float 的值不为 none<br>3.position 的值为 absolute 或者 fixed<br>4.display 的值为 inline-block, table-cell, table-caption, flex, inline-flex<br>5.overflow 的值不为 visible</p>
+<h2 id="BFC-的特性"><a href="#BFC-的特性" class="headerlink" title="BFC 的特性"></a>BFC 的特性</h2><p>1.BOX 垂直方向上的距离由 margin 决定，在同一个 BFC 中的 box ，垂直方向上的 margin 会发生重叠。<br>2.BFC 的区域不会与浮动的 BOX 重叠。<br>3.BFC 计算高度时，浮动元素的高度也会计算在内。<br>4.BFC 内的元素不会影响外部的元素，外部的元素也不会影响 BFC 内部的元素。<br>5.BFC 内的盒子的左外边缘（margin-left）会触碰到盒子的左边缘(border-left)，对于从右向左的布局则是内部盒子的右外边距触碰到外部盒子的右边缘。<br>6.BFC 内的 BOX 在垂直方向上一个一个排列。</p>
+<h2 id="BFC-特性应用"><a href="#BFC-特性应用" class="headerlink" title="BFC 特性应用"></a>BFC 特性应用</h2><h3 id="1-margin-重叠现象"><a href="#1-margin-重叠现象" class="headerlink" title="1. margin 重叠现象"></a>1. margin 重叠现象</h3><blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 400px;<br>&emsp;height: 600px;<br>&emsp;border: 1px solid #000;<br>    }<br>    .demo1 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-bottom: 100px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-top: 100px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86" alt="img"><br>CSS中的代码分别设置了demo1和demo2的下边距为100px,上边距为px，实际显示出来的边距是100px，原因是margin在垂直方向发生了重叠，重叠的规则如下：<br>1.margin 都为正，盒子的边距为最大的margin值。<br>2.margin 一正一负，盒子的边距为二者相加。<br>3.margin 都为负，盒子的边距为绝对值大的值。</p>
+<p>如何解决边距重叠，给box2包裹一个div，触发BFC</p>
+<blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”box”&gt;<br>&emsp;&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>  .box {<br>&emsp;overflow: hidden;<br>  }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB272dfcc310495f3a7fd3e3a0adb989e9?method=download&shareKey=89ec139f677d0bfe631fcbb6d654fb11" alt="margin"></p>
+<h3 id="2-实现双栏布局"><a href="#2-实现双栏布局" class="headerlink" title="2.实现双栏布局"></a>2.实现双栏布局</h3><blockquote>
+<p>&lt;div class=”left”&gt;left&lt;/div&gt;<br>  &lt;div class=”right”&gt;right&lt;/div&gt;<br>  &lt;style&gt;<br>    div {<br>&emsp;height: 200px;<br>    }<br>    .left {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;background-color: red;<br>    }<br>    .right {<br>&emsp;overflow: hidden;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB8c6d470b8240e3cca84e15afa550d2ab?method=download&shareKey=a69e1638a49573dd17bc09b8e9bad2ce" alt="float"><br>在默认情况下，left盒子浮动，left和right会发生重叠，因为left不占位置，right会补上来，当给right添加属性，overflow: hidden，触发了right的BFC，BFC不与Float的元素重叠，因此形成两栏布局。</p>
+<h3 id="3-解决父元素塌陷"><a href="#3-解决父元素塌陷" class="headerlink" title="3. 解决父元素塌陷"></a>3. 解决父元素塌陷</h3><blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>    }<br>    .demo1 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB94841a615eb140d7861fe1a10e988f9c?method=download&shareKey=5098ca2314d011958ca9e0a0b567e0ff" alt="img"><br>父元素塌陷的原因，父元素没有设置高度，由子元素撑开，当子元素设置了浮动，脱离了文档流，父元素高度没有支撑，发生了塌陷。<br>解决办法，使父元素触发BFC。</p>
+<blockquote>
+<p>.container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>&emsp;overflow: hidden; /<em>设置该属性触发BFC</em>/<br>    }</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBd2440ff1e8da5ceec41bfad362e1172e?method=download&shareKey=2ff20ca1737b59a1b074fcb0ac38d334" alt="img"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文阐述了BFC的概念，特性以及BFC的应用，熟练的掌握BFC有利于更好的处理布局。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6899996104478326798">简单易懂BFC</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903655468957704">关于BFC理解</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/libin-1/p/7098468.html">什么是BFC</a></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/14/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80/" class="archive-article-date">
-  	<time datetime="2021-03-14T09:53:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/14/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">两栏布局</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/14/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80/">两栏布局</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/11/%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/" class="archive-article-date">
-  	<time datetime="2021-03-11T09:34:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/11/%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80/">三栏布局</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/08/%E8%B0%88%E4%B8%80%E8%B0%88%E9%97%AD%E5%8C%85/" class="archive-article-date">
-  	<time datetime="2021-03-07T23:41:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/08/%E8%B0%88%E4%B8%80%E8%B0%88%E9%97%AD%E5%8C%85/">谈一谈闭包</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/03/03/%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF/" class="archive-article-date">
-  	<time datetime="2021-03-03T02:06:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/03/03/%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF/">JS继承</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/27/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="archive-article-date">
-  	<time datetime="2021-02-27T06:45:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/27/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型与原型链</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/25/%E6%B5%85%E8%B0%88this/" class="archive-article-date">
-  	<time datetime="2021-02-25T07:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/25/%E6%B5%85%E8%B0%88this/">this 的指向问题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-22T01:21:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">Flex-布局（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-18T12:42:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/">Flex 布局（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-02-14T10:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">canvas的一些理解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2021/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +357,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

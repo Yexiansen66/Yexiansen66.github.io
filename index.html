@@ -152,6 +152,94 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-BFC及其应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/">BFC及其应用</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-03-15T09:02:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。</p>
+<h2 id="产生-BFC-的条件"><a href="#产生-BFC-的条件" class="headerlink" title="产生 BFC 的条件"></a>产生 BFC 的条件</h2><p>1.根元素(html)<br>2.float 的值不为 none<br>3.position 的值为 absolute 或者 fixed<br>4.display 的值为 inline-block, table-cell, table-caption, flex, inline-flex<br>5.overflow 的值不为 visible</p>
+<h2 id="BFC-的特性"><a href="#BFC-的特性" class="headerlink" title="BFC 的特性"></a>BFC 的特性</h2><p>1.BOX 垂直方向上的距离由 margin 决定，在同一个 BFC 中的 box ，垂直方向上的 margin 会发生重叠。<br>2.BFC 的区域不会与浮动的 BOX 重叠。<br>3.BFC 计算高度时，浮动元素的高度也会计算在内。<br>4.BFC 内的元素不会影响外部的元素，外部的元素也不会影响 BFC 内部的元素。<br>5.BFC 内的盒子的左外边缘（margin-left）会触碰到盒子的左边缘(border-left)，对于从右向左的布局则是内部盒子的右外边距触碰到外部盒子的右边缘。<br>6.BFC 内的 BOX 在垂直方向上一个一个排列。</p>
+<h2 id="BFC-特性应用"><a href="#BFC-特性应用" class="headerlink" title="BFC 特性应用"></a>BFC 特性应用</h2><h3 id="1-margin-重叠现象"><a href="#1-margin-重叠现象" class="headerlink" title="1. margin 重叠现象"></a>1. margin 重叠现象</h3><blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 400px;<br>&emsp;height: 600px;<br>&emsp;border: 1px solid #000;<br>    }<br>    .demo1 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-bottom: 100px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-top: 100px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86" alt="img"><br>CSS中的代码分别设置了demo1和demo2的下边距为100px,上边距为px，实际显示出来的边距是100px，原因是margin在垂直方向发生了重叠，重叠的规则如下：<br>1.margin 都为正，盒子的边距为最大的margin值。<br>2.margin 一正一负，盒子的边距为二者相加。<br>3.margin 都为负，盒子的边距为绝对值大的值。</p>
+<p>如何解决边距重叠，给box2包裹一个div，触发BFC</p>
+<blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”box”&gt;<br>&emsp;&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>  .box {<br>&emsp;overflow: hidden;<br>  }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB272dfcc310495f3a7fd3e3a0adb989e9?method=download&shareKey=89ec139f677d0bfe631fcbb6d654fb11" alt="margin"></p>
+<h3 id="2-实现双栏布局"><a href="#2-实现双栏布局" class="headerlink" title="2.实现双栏布局"></a>2.实现双栏布局</h3><blockquote>
+<p>&lt;div class=”left”&gt;left&lt;/div&gt;<br>  &lt;div class=”right”&gt;right&lt;/div&gt;<br>  &lt;style&gt;<br>    div {<br>&emsp;height: 200px;<br>    }<br>    .left {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;background-color: red;<br>    }<br>    .right {<br>&emsp;overflow: hidden;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB8c6d470b8240e3cca84e15afa550d2ab?method=download&shareKey=a69e1638a49573dd17bc09b8e9bad2ce" alt="float"><br>在默认情况下，left盒子浮动，left和right会发生重叠，因为left不占位置，right会补上来，当给right添加属性，overflow: hidden，触发了right的BFC，BFC不与Float的元素重叠，因此形成两栏布局。</p>
+<h3 id="3-解决父元素塌陷"><a href="#3-解决父元素塌陷" class="headerlink" title="3. 解决父元素塌陷"></a>3. 解决父元素塌陷</h3><blockquote>
+<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>    }<br>    .demo1 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB94841a615eb140d7861fe1a10e988f9c?method=download&shareKey=5098ca2314d011958ca9e0a0b567e0ff" alt="img"><br>父元素塌陷的原因，父元素没有设置高度，由子元素撑开，当子元素设置了浮动，脱离了文档流，父元素高度没有支撑，发生了塌陷。<br>解决办法，使父元素触发BFC。</p>
+<blockquote>
+<p>.container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>&emsp;overflow: hidden; /<em>设置该属性触发BFC</em>/<br>    }</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEBd2440ff1e8da5ceec41bfad362e1172e?method=download&shareKey=2ff20ca1737b59a1b074fcb0ac38d334" alt="img"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文阐述了BFC的概念，特性以及BFC的应用，熟练的掌握BFC有利于更好的处理布局。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6899996104478326798">简单易懂BFC</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903655468957704">关于BFC理解</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/libin-1/p/7098468.html">什么是BFC</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-两栏布局" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1017,82 +1105,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-我的第一篇博客——hexo搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="我的第一篇博客————hexo搭建博客"><a href="#我的第一篇博客————hexo搭建博客" class="headerlink" title="我的第一篇博客————hexo搭建博客"></a>我的第一篇博客————hexo搭建博客</h1><h2 id="一、环境搭建"><a href="#一、环境搭建" class="headerlink" title="一、环境搭建"></a>一、环境搭建</h2><p>我的hexo是在window系统下搭建的。</p>
-<h3 id="1-部署node环境"><a href="#1-部署node环境" class="headerlink" title="1.部署node环境"></a>1.部署node环境</h3><p>访问<a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js 官网</a>下载稳定版本的安装包，下载之后进行安装。<br>安装node的同时，也会安装npm，通过node -v,npm -v 检查是否成功安装。<br><img src="https://note.youdao.com/yws/api/personal/file/4900B174B7E1474183BDD4708571723D?method=download&shareKey=6aaea7aee54b2457800f34b8d2e94a9a" alt="展示 node -v"></p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/45B2623106FC44A2849E9024B4EE6C50?method=download&shareKey=abc144eb879a76f04cc8f72cc143ebc6" alt="展示 npm -v"></p>
-<h3 id="2-淘宝镜像"><a href="#2-淘宝镜像" class="headerlink" title="2.淘宝镜像"></a>2.淘宝镜像</h3><p>npm服务器在国外，用npm下载依赖包会速度较慢，淘宝镜像是把外网上的资源复制了一份，挂在他的服务器上，提升了国内的国内的访问速度。<br>在命令行输入命令： npm install -g cnpm –registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org</a></p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/518A2D2B1C0C49AB947EA75FE0F11ECB?method=download&shareKey=bf74590a190a0afb33803cdfa81ac47e" alt="cnpm"></p>
-<p>ps:这个是安装的全局的，并不是安装在blog文件夹中。<br>安装完之后，通过cnpm -v 检查是否成功安装。</p>
-<h2 id="二、hexo搭建"><a href="#二、hexo搭建" class="headerlink" title="二、hexo搭建"></a>二、hexo搭建</h2><h3 id="1-全局安装"><a href="#1-全局安装" class="headerlink" title="1.全局安装"></a>1.全局安装</h3><p>打开命令提示符（CMD），新建一个blog（文件夹名自起）文件夹，并通过命令：cd blog 进入该文件夹。<br>全局安装hexo-cli: cnpm install -g hexo-cli</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/19361AE08352424B8C50D10AC6BA7041?method=download&shareKey=71590170c5fd7e6b81ead17d2aba1137" alt="hexo-cli"></p>
-<p>通过hexo -v 检查是否成功安装。</p>
-<h3 id="2-初始化hexo"><a href="#2-初始化hexo" class="headerlink" title="2.初始化hexo"></a>2.初始化hexo</h3><p>输入命令：hexo init</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/FFCED84BAEE545B08E0AC74C86D6622C?method=download&shareKey=5d89bfca45e5e145bc1b8721d36b3dc1" alt="hexo-init"></p>
-<p>初始化成功后，打开blog文件夹，会有以下文件：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/AB13476C17374805A363A6B57A68C4B6?method=download&shareKey=599e87d1cfea336a8a7e9acb3b5b278a" alt="hexo-init-files"></p>
-<p>通过命令新建文件：hexo new “我新建的博客”</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/8B17A9E9EF4E45F7AF25E9060C3A3DF5?method=download&shareKey=f9a71c943e5c2f5cf70a061c8401b387" alt="hexo-new-flles"></p>
-<p>通过命令使用服务器：hexo server<br>网站将在<a href="http://localhost:4000默认运行">http://localhost:4000默认运行</a></p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/5177CD9B6FD247D9BE495FCC4411C607?method=download&shareKey=161f25fc54b2621547ebed5da239b393" alt="hexo-server"></p>
-<h2 id="三、部署到远端"><a href="#三、部署到远端" class="headerlink" title="三、部署到远端"></a>三、部署到远端</h2><p>我是将他部署到我的github上去，首先新建仓库:<br>仓库的名字前面的部分一定要与自己的账户名一致，命名格式为：账户名.github.io<br>我的账户为Yexiansen66，因此新建的仓库名为：Yexiansen66.github.io,</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/38E56AC5F81F4A51A5283A9F04C724E4?method=download&shareKey=a47d79c24049acdef1ca30a3a6f06a73" alt="hexo-github"></p>
-<p>下面需要更改blog文件下的_config.yml文件，将deploy属性改成如下图所示：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/8F38B5389C9C46BFA2DD43CDB82188E9?method=download&shareKey=bb810d781ed6fb0f2ed0f356af00667c" alt="hexo-config"></p>
-<p>因为我的github是用ssh方式搭建的，所以repo后面黏贴ssh的代码，如果不是用ssh搭建的，黏贴http的代码，如图所示：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/BE83834DFD5C40E898CFBC4AF968EA0B?method=download&shareKey=0a953b79094719fd26250d0f5344e82b" alt="http-ssh"></p>
-<p>通过命令生成静态网站：hexo generate</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/131214F91D04401392BCA29C76D1D6F4?method=download&shareKey=5869c18b8e2e4ebe083625cc5af48166" alt="hexo-generate"></p>
-<p>通过命令部署网站：hexo deploy</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/E4256B80BC6649EAB8A280B6666A9C21?method=download&shareKey=e476b16c4e2530a806fe03c123e353ea" alt="hexo-deploy"></p>
-<p>此时在浏览器的搜索栏里输入：Yexiansen66.github.io，自己的博客页面就生成了。</p>
-<h2 id="四、参考文献"><a href="#四、参考文献" class="headerlink" title="四、参考文献"></a>四、参考文献</h2><p>本文参照<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty">https://www.bilibili.com/video/BV1Yb411a7ty</a> 实践，如有侵权，请联系。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94hexo%E6%90%AD%E5%BB%BA/">展开全文 >></a>
         </p>
       
 
