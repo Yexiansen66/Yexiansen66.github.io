@@ -6,25 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>BFC及其应用 | Hexo</title>
+  <title>浅拷贝和深拷贝 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。 产生 BFC 的条件1.根元素(html)2.float 的值不为 none3.position 的值为 absolute 或者 fixed4.display 的值为 inlin">
+  <meta name="description" content="今天聊一聊浅拷贝和深拷贝，说到拷贝，就离不开堆栈，基本数据类型和引用数据类型。 基本数据类型和引用数据类型基本数据类型：string，number， undefined，null，boollean，symbol。引用数据类型：统称为Object类型，具体的有Object，Array，Date，Function等。 基本数据类型由于数据简单，占据空间小，被使用频繁，因此放在栈中储存。引用数据类型由于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BFC及其应用">
-<meta property="og:url" content="http://example.com/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:title" content="浅拷贝和深拷贝">
+<meta property="og:url" content="http://example.com/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。 产生 BFC 的条件1.根元素(html)2.float 的值不为 none3.position 的值为 absolute 或者 fixed4.display 的值为 inlin">
+<meta property="og:description" content="今天聊一聊浅拷贝和深拷贝，说到拷贝，就离不开堆栈，基本数据类型和引用数据类型。 基本数据类型和引用数据类型基本数据类型：string，number， undefined，null，boollean，symbol。引用数据类型：统称为Object类型，具体的有Object，Array，Date，Function等。 基本数据类型由于数据简单，占据空间小，被使用频繁，因此放在栈中储存。引用数据类型由于">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB272dfcc310495f3a7fd3e3a0adb989e9?method=download&shareKey=89ec139f677d0bfe631fcbb6d654fb11">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB8c6d470b8240e3cca84e15afa550d2ab?method=download&shareKey=a69e1638a49573dd17bc09b8e9bad2ce">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB94841a615eb140d7861fe1a10e988f9c?method=download&shareKey=5098ca2314d011958ca9e0a0b567e0ff">
-<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBd2440ff1e8da5ceec41bfad362e1172e?method=download&shareKey=2ff20ca1737b59a1b074fcb0ac38d334">
-<meta property="article:published_time" content="2021-03-15T09:02:02.000Z">
-<meta property="article:modified_time" content="2021-03-15T09:08:01.772Z">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/2DFC9D0F3E4F462A88429E2D283761D3?method=download&shareKey=79bce6787ccab00e49acec754b7b1d77">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/B765ACF456CD4FD9BB7AC44E2BA7E734?method=download&shareKey=b24b614334e84b077e2dcf46eda33f17">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/BD48C9A322F34338B6B0A360C57528EA?method=download&shareKey=37cfdf2d7d4709888a0c128d68fa6ab1">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/DF017DF8922F4222A21B44ADC2647312?method=download&shareKey=4592f161124f0333469628e94151f6bf">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/74A987AF6E02401784B1A20B422390FB?method=download&shareKey=f2aba5fa7feb770eede3fa655358e74a">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/3062B81667A8499FABDDA896FB4BC847?method=download&shareKey=8058ad8c760de992a0217faf91e4851b">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/81CC29A8114447C2A5ABC570D3AEA44D?method=download&shareKey=60ab31de5d75039ab98ad5705020b624">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/0187704CA78D45A7B9FA3588B728CC10?method=download&shareKey=97b6bca61a9182c121a4cad2ecb208ed">
+<meta property="article:published_time" content="2021-03-18T23:06:24.000Z">
+<meta property="article:modified_time" content="2021-03-19T01:57:36.505Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/2DFC9D0F3E4F462A88429E2D283761D3?method=download&shareKey=79bce6787ccab00e49acec754b7b1d77">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -160,52 +163,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-BFC及其应用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-浅克隆与深克隆" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      BFC及其应用
+      浅拷贝和深拷贝
     </h1>
   
 
         
-        <a href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-03-15T09:02:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-15</time>
+        <a href="/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/" class="archive-article-date">
+  	<time datetime="2021-03-18T23:06:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天讲一讲BFC盒模型，BFC的英文缩写为Block Formatting Contexts (块级格式化上下文)，可以简单的理解为一个封闭的盒子，盒子内的元素不会盒子外的元素，反过来盒子外的元素也不会影响盒子内的元素。</p>
-<h2 id="产生-BFC-的条件"><a href="#产生-BFC-的条件" class="headerlink" title="产生 BFC 的条件"></a>产生 BFC 的条件</h2><p>1.根元素(html)<br>2.float 的值不为 none<br>3.position 的值为 absolute 或者 fixed<br>4.display 的值为 inline-block, table-cell, table-caption, flex, inline-flex<br>5.overflow 的值不为 visible</p>
-<h2 id="BFC-的特性"><a href="#BFC-的特性" class="headerlink" title="BFC 的特性"></a>BFC 的特性</h2><p>1.BOX 垂直方向上的距离由 margin 决定，在同一个 BFC 中的 box ，垂直方向上的 margin 会发生重叠。<br>2.BFC 的区域不会与浮动的 BOX 重叠。<br>3.BFC 计算高度时，浮动元素的高度也会计算在内。<br>4.BFC 内的元素不会影响外部的元素，外部的元素也不会影响 BFC 内部的元素。<br>5.BFC 内的盒子的左外边缘（margin-left）会触碰到盒子的左边缘(border-left)，对于从右向左的布局则是内部盒子的右外边距触碰到外部盒子的右边缘。<br>6.BFC 内的 BOX 在垂直方向上一个一个排列。</p>
-<h2 id="BFC-特性应用"><a href="#BFC-特性应用" class="headerlink" title="BFC 特性应用"></a>BFC 特性应用</h2><h3 id="1-margin-重叠现象"><a href="#1-margin-重叠现象" class="headerlink" title="1. margin 重叠现象"></a>1. margin 重叠现象</h3><blockquote>
-<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 400px;<br>&emsp;height: 600px;<br>&emsp;border: 1px solid #000;<br>    }<br>    .demo1 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-bottom: 100px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;width: 100%;<br>&emsp;height: 200px;<br>&emsp;margin-top: 100px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEB488f42a6a611e5ad045291ff8b3aaab3?method=download&shareKey=fb5d871d53493a2d1a4c726b4c88df86" alt="img"><br>CSS中的代码分别设置了demo1和demo2的下边距为100px,上边距为px，实际显示出来的边距是100px，原因是margin在垂直方向发生了重叠，重叠的规则如下：<br>1.margin 都为正，盒子的边距为最大的margin值。<br>2.margin 一正一负，盒子的边距为二者相加。<br>3.margin 都为负，盒子的边距为绝对值大的值。</p>
-<p>如何解决边距重叠，给box2包裹一个div，触发BFC</p>
+        <p>今天聊一聊浅拷贝和深拷贝，说到拷贝，就离不开堆栈，基本数据类型和引用数据类型。</p>
+<h2 id="基本数据类型和引用数据类型"><a href="#基本数据类型和引用数据类型" class="headerlink" title="基本数据类型和引用数据类型"></a>基本数据类型和引用数据类型</h2><p>基本数据类型：string，number， undefined，null，boollean，symbol。<br>引用数据类型：统称为Object类型，具体的有Object，Array，Date，Function等。</p>
+<p>基本数据类型由于数据简单，占据空间小，被使用频繁，因此放在栈中储存。<br>引用数据类型由于占据空间大，大小不固定，放在栈中会影响程序的运行的性能，因此在堆中开辟一个空间用来储存。并且在栈中储存了指针，指向该堆中实体的地址。</p>
+<h3 id="储存方式"><a href="#储存方式" class="headerlink" title="储存方式"></a>储存方式</h3><p>基本数据类型储存在栈中：栈内存中储存着变量名称和变量的值</p>
 <blockquote>
-<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”box”&gt;<br>&emsp;&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>  .box {<br>&emsp;overflow: hidden;<br>  }<br>  &lt;/style&gt;</p>
+<p>let a = 1;</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEB272dfcc310495f3a7fd3e3a0adb989e9?method=download&shareKey=89ec139f677d0bfe631fcbb6d654fb11" alt="margin"></p>
-<h3 id="2-实现双栏布局"><a href="#2-实现双栏布局" class="headerlink" title="2.实现双栏布局"></a>2.实现双栏布局</h3><blockquote>
-<p>&lt;div class=”left”&gt;left&lt;/div&gt;<br>  &lt;div class=”right”&gt;right&lt;/div&gt;<br>  &lt;style&gt;<br>    div {<br>&emsp;height: 200px;<br>    }<br>    .left {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;background-color: red;<br>    }<br>    .right {<br>&emsp;overflow: hidden;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEB8c6d470b8240e3cca84e15afa550d2ab?method=download&shareKey=a69e1638a49573dd17bc09b8e9bad2ce" alt="float"><br>在默认情况下，left盒子浮动，left和right会发生重叠，因为left不占位置，right会补上来，当给right添加属性，overflow: hidden，触发了right的BFC，BFC不与Float的元素重叠，因此形成两栏布局。</p>
-<h3 id="3-解决父元素塌陷"><a href="#3-解决父元素塌陷" class="headerlink" title="3. 解决父元素塌陷"></a>3. 解决父元素塌陷</h3><blockquote>
-<p>&lt;div class=”container”&gt;<br>&emsp;&lt;div class=”demo1”&gt;demo1&lt;/div&gt;<br>&emsp;&lt;div class=”demo2”&gt;demo2&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;style&gt;<br>    .container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>    }<br>    .demo1 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: red;<br>    }<br>    .demo2 {<br>&emsp;float: left;<br>&emsp;width: 200px;<br>&emsp;height: 200px;<br>&emsp;background-color: blue;<br>    }<br>  &lt;/style&gt;</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEB94841a615eb140d7861fe1a10e988f9c?method=download&shareKey=5098ca2314d011958ca9e0a0b567e0ff" alt="img"><br>父元素塌陷的原因，父元素没有设置高度，由子元素撑开，当子元素设置了浮动，脱离了文档流，父元素高度没有支撑，发生了塌陷。<br>解决办法，使父元素触发BFC。</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/2DFC9D0F3E4F462A88429E2D283761D3?method=download&shareKey=79bce6787ccab00e49acec754b7b1d77" alt="zhan"></p>
 <blockquote>
-<p>.container {<br>&emsp;width: 500px;<br>&emsp;border: 5px solid green;<br>&emsp;overflow: hidden; /<em>设置该属性触发BFC</em>/<br>    }</p>
+<p>let b = a;<br>b = 3;<br>console.log(a, b); // 1, 3</p>
 </blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/WEBd2440ff1e8da5ceec41bfad362e1172e?method=download&shareKey=2ff20ca1737b59a1b074fcb0ac38d334" alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文阐述了BFC的概念，特性以及BFC的应用，熟练的掌握BFC有利于更好的处理布局。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6899996104478326798">简单易懂BFC</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903655468957704">关于BFC理解</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/libin-1/p/7098468.html">什么是BFC</a></p>
+<p>当let b = a 时，栈内存会新开一个内存，如图所示：<br><img src="https://note.youdao.com/yws/api/personal/file/B765ACF456CD4FD9BB7AC44E2BA7E734?method=download&shareKey=b24b614334e84b077e2dcf46eda33f17" alt="zhan2"></p>
+<p>当修改 b 的值，不会影响 a 的值。</p>
+<p>引用数据类型保存在堆中：值储存在堆内存中，属性名保存在栈中，同时栈中保存一个指针，指向堆内存中的数据。</p>
+<blockquote>
+<p>let a = {num: 1};</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/BD48C9A322F34338B6B0A360C57528EA?method=download&shareKey=37cfdf2d7d4709888a0c128d68fa6ab1" alt="img"></p>
+<blockquote>
+<p>let b = a;<br>b.num = 3;<br>console.log(a.num) //3</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/DF017DF8922F4222A21B44ADC2647312?method=download&shareKey=4592f161124f0333469628e94151f6bf" alt="img"></p>
+<p>当let b = a 时，栈内存会开辟一个内存，并把 a 的引用地址赋值给 b,因此 b 和 a 引用着同意对象，所以修改 b 的 num 值，a 的 num 值也会跟着改变。</p>
+<h2 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h2><h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>浅拷贝：创建一个新的数据，这个数据有着原始数据的一份精确的拷贝。如果是基本数据类型，拷贝基本类型的值，如果是引用数据类型，拷贝的是引用类型的地址。</p>
+<p>深拷贝：深拷贝拷贝所有的属性，并拷贝属性指向的动态分配的内存。</p>
+<h3 id="实现浅拷贝"><a href="#实现浅拷贝" class="headerlink" title="实现浅拷贝"></a>实现浅拷贝</h3><h4 id="1-object-assign"><a href="#1-object-assign" class="headerlink" title="1.object.assign()"></a>1.object.assign()</h4><blockquote>
+<p>let a = [1, 2, [3, 4]];<br>let b = Object.assign([], a);<br>console.log(a, b);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/74A987AF6E02401784B1A20B422390FB?method=download&shareKey=f2aba5fa7feb770eede3fa655358e74a" alt="img"></p>
+<blockquote>
+<p>a[1] = 5;<br>a[2][0] = 6;<br>console.log(a, b)</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/3062B81667A8499FABDDA896FB4BC847?method=download&shareKey=8058ad8c760de992a0217faf91e4851b" alt="img"></p>
+<p>修改 a 对象基本数据类型，b 的基本类型数据不会改变，修改对象 a 引用数据类型的值，对象 b 的值也会发生改变。</p>
+<h4 id="2-扩展运算符实现"><a href="#2-扩展运算符实现" class="headerlink" title="2.扩展运算符实现"></a>2.扩展运算符实现</h4><blockquote>
+<p>let a = {num : 1};<br>let b = {…a};<br>a.c = 2;<br>console.log(b.c) //1</p>
+</blockquote>
+<h4 id="3-自己实现一个浅拷贝"><a href="#3-自己实现一个浅拷贝" class="headerlink" title="3.自己实现一个浅拷贝"></a>3.自己实现一个浅拷贝</h4><blockquote>
+<p>function shallowClone(obj) {<br>&emsp;let objClone = {};<br>&emsp;for(let i in obj) {<br>&emsp;&emsp;objClone[i] = obj[i];<br>&emsp;}<br>&emsp;return objClone;<br>    }<br>    let a = {name: ‘yexiansen’, age: 18};<br>    let b = shallowClone(a);<br>    console.log(b);</p>
+</blockquote>
+<h3 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h3><h4 id="1-通过递归实现"><a href="#1-通过递归实现" class="headerlink" title="1.通过递归实现"></a>1.通过递归实现</h4><blockquote>
+<p>function deepClone(obj) {<br>&emsp;let objClone = !Array.isArray(obj) ? {} : [];<br>&emsp;if(obj &amp;&amp; typeof obj === ‘object’) {<br>&emsp;&emsp;for(let i in obj) {<br>&emsp;&emsp;&emsp;if(obj.hasOwnProperty(i)) {<br>&emsp;&emsp;&emsp;&emsp;if(typeof obj[i] === ‘object’) {<br>&emsp;&emsp;&emsp;&emsp;&emsp;objClone[i] = deepClone(obj[i]);<br>&emsp;&emsp;&emsp;&emsp;}else {<br>&emsp;&emsp;&emsp;&emsp;&emsp;objClone[i] = obj[i];<br>&emsp;&emsp;&emsp;&emsp;}<br>&emsp;&emsp;&emsp;}<br>&emsp;&emsp;}<br>&emsp;}<br>&emsp;return objClone;<br>    }<br>    let a = {name: ‘yexiansen’, age: {<br>&emsp;what: ‘yexiansen’,<br>&emsp;say: ‘不告诉你’<br>    }}<br>    let b = deepClone(a);<br>    console.log(b);<br>    b.age.what = ‘haoren’;<br>    console.log(a, b);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/81CC29A8114447C2A5ABC570D3AEA44D?method=download&shareKey=60ab31de5d75039ab98ad5705020b624" alt="deepClone"></p>
+<p>首先打印出 b, 为 a 的复制，再修改 b 的引用属性，a 的引用属性并没有跟着更改，正确的完成了深拷贝。</p>
+<h4 id="2-通过JSON-parse-和JSON-stringify实现"><a href="#2-通过JSON-parse-和JSON-stringify实现" class="headerlink" title="2.通过JSON.parse()和JSON.stringify实现"></a>2.通过JSON.parse()和JSON.stringify实现</h4><blockquote>
+<p> function cloneJSON(obj) {<br>&emsp;return JSON.parse(JSON.stringify(obj))<br>    }<br>    let num = {a: 1, b: {c: 2}};<br>    let numClone = cloneJSON(num);<br>    console.log(numClone);<br>    numClone.b.c = 3;<br>    console.log(num, numClone);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/0187704CA78D45A7B9FA3588B728CC10?method=download&shareKey=97b6bca61a9182c121a4cad2ecb208ed" alt="img"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文写了基本数据类型和引用数据类型的特性，从而引出浅拷贝和深拷贝的概念，以及如何实现浅拷贝与深拷贝。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6906369563793817607">深拷贝 浅拷贝</a></p>
 
       
 
@@ -285,7 +313,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -299,18 +327,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          浅拷贝和深拷贝
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/14/%E4%B8%A4%E6%A0%8F%E5%B8%83%E5%B1%80/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">两栏布局</div>
+    <a href="/2021/03/15/BFC%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">BFC及其应用</div>
       <i class="icon-circle-right"></i>
     </a>
   

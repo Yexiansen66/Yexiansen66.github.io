@@ -152,6 +152,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浅克隆与深克隆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/">浅拷贝和深拷贝</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/" class="archive-article-date">
+  	<time datetime="2021-03-18T23:06:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天聊一聊浅拷贝和深拷贝，说到拷贝，就离不开堆栈，基本数据类型和引用数据类型。</p>
+<h2 id="基本数据类型和引用数据类型"><a href="#基本数据类型和引用数据类型" class="headerlink" title="基本数据类型和引用数据类型"></a>基本数据类型和引用数据类型</h2><p>基本数据类型：string，number， undefined，null，boollean，symbol。<br>引用数据类型：统称为Object类型，具体的有Object，Array，Date，Function等。</p>
+<p>基本数据类型由于数据简单，占据空间小，被使用频繁，因此放在栈中储存。<br>引用数据类型由于占据空间大，大小不固定，放在栈中会影响程序的运行的性能，因此在堆中开辟一个空间用来储存。并且在栈中储存了指针，指向该堆中实体的地址。</p>
+<h3 id="储存方式"><a href="#储存方式" class="headerlink" title="储存方式"></a>储存方式</h3><p>基本数据类型储存在栈中：栈内存中储存着变量名称和变量的值</p>
+<blockquote>
+<p>let a = 1;</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/2DFC9D0F3E4F462A88429E2D283761D3?method=download&shareKey=79bce6787ccab00e49acec754b7b1d77" alt="zhan"></p>
+<blockquote>
+<p>let b = a;<br>b = 3;<br>console.log(a, b); // 1, 3</p>
+</blockquote>
+<p>当let b = a 时，栈内存会新开一个内存，如图所示：<br><img src="https://note.youdao.com/yws/api/personal/file/B765ACF456CD4FD9BB7AC44E2BA7E734?method=download&shareKey=b24b614334e84b077e2dcf46eda33f17" alt="zhan2"></p>
+<p>当修改 b 的值，不会影响 a 的值。</p>
+<p>引用数据类型保存在堆中：值储存在堆内存中，属性名保存在栈中，同时栈中保存一个指针，指向堆内存中的数据。</p>
+<blockquote>
+<p>let a = {num: 1};</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/BD48C9A322F34338B6B0A360C57528EA?method=download&shareKey=37cfdf2d7d4709888a0c128d68fa6ab1" alt="img"></p>
+<blockquote>
+<p>let b = a;<br>b.num = 3;<br>console.log(a.num) //3</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/DF017DF8922F4222A21B44ADC2647312?method=download&shareKey=4592f161124f0333469628e94151f6bf" alt="img"></p>
+<p>当let b = a 时，栈内存会开辟一个内存，并把 a 的引用地址赋值给 b,因此 b 和 a 引用着同意对象，所以修改 b 的 num 值，a 的 num 值也会跟着改变。</p>
+<h2 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h2><h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3><p>浅拷贝：创建一个新的数据，这个数据有着原始数据的一份精确的拷贝。如果是基本数据类型，拷贝基本类型的值，如果是引用数据类型，拷贝的是引用类型的地址。</p>
+<p>深拷贝：深拷贝拷贝所有的属性，并拷贝属性指向的动态分配的内存。</p>
+<h3 id="实现浅拷贝"><a href="#实现浅拷贝" class="headerlink" title="实现浅拷贝"></a>实现浅拷贝</h3><h4 id="1-object-assign"><a href="#1-object-assign" class="headerlink" title="1.object.assign()"></a>1.object.assign()</h4><blockquote>
+<p>let a = [1, 2, [3, 4]];<br>let b = Object.assign([], a);<br>console.log(a, b);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/74A987AF6E02401784B1A20B422390FB?method=download&shareKey=f2aba5fa7feb770eede3fa655358e74a" alt="img"></p>
+<blockquote>
+<p>a[1] = 5;<br>a[2][0] = 6;<br>console.log(a, b)</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/3062B81667A8499FABDDA896FB4BC847?method=download&shareKey=8058ad8c760de992a0217faf91e4851b" alt="img"></p>
+<p>修改 a 对象基本数据类型，b 的基本类型数据不会改变，修改对象 a 引用数据类型的值，对象 b 的值也会发生改变。</p>
+<h4 id="2-扩展运算符实现"><a href="#2-扩展运算符实现" class="headerlink" title="2.扩展运算符实现"></a>2.扩展运算符实现</h4><blockquote>
+<p>let a = {num : 1};<br>let b = {…a};<br>a.c = 2;<br>console.log(b.c) //1</p>
+</blockquote>
+<h4 id="3-自己实现一个浅拷贝"><a href="#3-自己实现一个浅拷贝" class="headerlink" title="3.自己实现一个浅拷贝"></a>3.自己实现一个浅拷贝</h4><blockquote>
+<p>function shallowClone(obj) {<br>&emsp;let objClone = {};<br>&emsp;for(let i in obj) {<br>&emsp;&emsp;objClone[i] = obj[i];<br>&emsp;}<br>&emsp;return objClone;<br>    }<br>    let a = {name: ‘yexiansen’, age: 18};<br>    let b = shallowClone(a);<br>    console.log(b);</p>
+</blockquote>
+<h3 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h3><h4 id="1-通过递归实现"><a href="#1-通过递归实现" class="headerlink" title="1.通过递归实现"></a>1.通过递归实现</h4><blockquote>
+<p>function deepClone(obj) {<br>&emsp;let objClone = !Array.isArray(obj) ? {} : [];<br>&emsp;if(obj &amp;&amp; typeof obj === ‘object’) {<br>&emsp;&emsp;for(let i in obj) {<br>&emsp;&emsp;&emsp;if(obj.hasOwnProperty(i)) {<br>&emsp;&emsp;&emsp;&emsp;if(typeof obj[i] === ‘object’) {<br>&emsp;&emsp;&emsp;&emsp;&emsp;objClone[i] = deepClone(obj[i]);<br>&emsp;&emsp;&emsp;&emsp;}else {<br>&emsp;&emsp;&emsp;&emsp;&emsp;objClone[i] = obj[i];<br>&emsp;&emsp;&emsp;&emsp;}<br>&emsp;&emsp;&emsp;}<br>&emsp;&emsp;}<br>&emsp;}<br>&emsp;return objClone;<br>    }<br>    let a = {name: ‘yexiansen’, age: {<br>&emsp;what: ‘yexiansen’,<br>&emsp;say: ‘不告诉你’<br>    }}<br>    let b = deepClone(a);<br>    console.log(b);<br>    b.age.what = ‘haoren’;<br>    console.log(a, b);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/81CC29A8114447C2A5ABC570D3AEA44D?method=download&shareKey=60ab31de5d75039ab98ad5705020b624" alt="deepClone"></p>
+<p>首先打印出 b, 为 a 的复制，再修改 b 的引用属性，a 的引用属性并没有跟着更改，正确的完成了深拷贝。</p>
+<h4 id="2-通过JSON-parse-和JSON-stringify实现"><a href="#2-通过JSON-parse-和JSON-stringify实现" class="headerlink" title="2.通过JSON.parse()和JSON.stringify实现"></a>2.通过JSON.parse()和JSON.stringify实现</h4><blockquote>
+<p> function cloneJSON(obj) {<br>&emsp;return JSON.parse(JSON.stringify(obj))<br>    }<br>    let num = {a: 1, b: {c: 2}};<br>    let numClone = cloneJSON(num);<br>    console.log(numClone);<br>    numClone.b.c = 3;<br>    console.log(num, numClone);</p>
+</blockquote>
+<p><img src="https://note.youdao.com/yws/api/personal/file/0187704CA78D45A7B9FA3588B728CC10?method=download&shareKey=97b6bca61a9182c121a4cad2ecb208ed" alt="img"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文写了基本数据类型和引用数据类型的特性，从而引出浅拷贝和深拷贝的概念，以及如何实现浅拷贝与深拷贝。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6906369563793817607">深拷贝 浅拷贝</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/19/%E6%B5%85%E5%85%8B%E9%9A%86%E4%B8%8E%E6%B7%B1%E5%85%8B%E9%9A%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-BFC及其应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1004,107 +1117,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-canvas的一些理解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">canvas的一些理解</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-02-14T10:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、canvas是什么"><a href="#一、canvas是什么" class="headerlink" title="一、canvas是什么"></a>一、canvas是什么</h2><blockquote>
-<p>MDN上的解释是这样的：Canvas API提供了一个通过javaScript和HTML的&lt;canvas&gt;元素来绘制图形的方式。  </p>
-</blockquote>
-<p>通俗的讲：就是通过JavaScript操作在页面上绘制图形，它的绘制方式与我们在纸上的绘图方式有很多相似之处，因此我将二者进行对比讲解，方便理解与记忆。</p>
-<h2 id="二、如何使用"><a href="#二、如何使用" class="headerlink" title="二、如何使用"></a>二、如何使用</h2><p>在HTML页面中输入canvas标签，可以添加width属性和height属性，如果不设置，默认的宽度为300px,高度150px。</p>
-<blockquote>
-<p>&lt;canvas id=”canvas” width=”600px” height=”600px”&gt;  </p>
-</blockquote>
-<p>通过script获取canvas元素:</p>
-<blockquote>
-<p>var canvas = document.getElementById(‘canvas’);  </p>
-</blockquote>
-<p>获取元素就像相当于在现实中画画的时候，把画板拿过来了，但是不能直接在画板上画，需要把画纸扑到上面。<br>程序中就是通过 CanvasRenderingContext2D 接口为&lt;vanvas&gt;元素进行渲染，渲染之后就可以在上面进行绘制。</p>
-<blockquote>
-<p>var ctx = canvas.getContext(‘2d’);  </p>
-</blockquote>
-<p>参数 2d 可以理解为在平面上进行绘制  </p>
-<p>画板有了，画纸也有了，我们该如何画图呢？<br>以画正方形为例，我们需要确定绘制的起点位置，宽和高，我们可以只画出正方向的轮廓，也可以把整个正方形涂满。<br>在程序中绘制一个正方形： </p>
-<blockquote>
-<p>ctx.beginPath();<br>  ctx.rect(100, 100, 100, 100);<br>  ctx.fillStyle = ‘green’;<br>  ctx.fill();  </p>
-</blockquote>
-<p>效果如下：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/7635A7F1D30848E092CBC10DD23FE925?method=download&shareKey=8437cba2baf7f585d19436423ffb62a4" alt="rect-box"></p>
-<p>这个案例是将长方形涂满，通过ctx.rect(100, 100, 100, 100)建立了一个起始位置在（100， 100）,长宽为100的长方形；ctx.fillStyle的命令作用是指定填充的颜色，ctx.fill()是进行填充，将颜色填充到形状中。<br>fill 单词的意思为：填充，因此命令也十分好记。<br>还有一种描边的方式：</p>
-<blockquote>
-<p>ctx.beginPath();<br>ctx.rect(100, 100, 150, 100);<br>ctx.strokeStyle = ‘green’;<br>ctx.stroke();  </p>
-</blockquote>
-<p>效果如下：<br><img src="https://note.youdao.com/yws/api/personal/file/0E33D61429FA4E608233D98DB618124A?method=download&shareKey=63d3f71dbe325462a5a4587434d02d56" alt="rect-stroke-box"></p>
-<p>stroke 我理解成路径的意思。ctx.strokeStyle即设置路径的颜色，ctx.stroke()作用是将正方形的形状按路径描绘出来。</p>
-<p>ctx.beginPath(); 用于清空子路径，重新绘制新的路径，开始绘制新的路径的时候需要调用此方法。</p>
-<h3 id="小结：canvas绘画的原理是是通过关键点画出需要的形状，但是此时形状是看不见的，需要通过fill（填充）或者stroke（路径）的方式为形状添加颜色。"><a href="#小结：canvas绘画的原理是是通过关键点画出需要的形状，但是此时形状是看不见的，需要通过fill（填充）或者stroke（路径）的方式为形状添加颜色。" class="headerlink" title="小结：canvas绘画的原理是是通过关键点画出需要的形状，但是此时形状是看不见的，需要通过fill（填充）或者stroke（路径）的方式为形状添加颜色。"></a>小结：canvas绘画的原理是是通过关键点画出需要的形状，但是此时形状是看不见的，需要通过fill（填充）或者stroke（路径）的方式为形状添加颜色。</h3><h2 id="三、其他命令（只是根据自己的理解做部分解释，详细可参考MDN）；"><a href="#三、其他命令（只是根据自己的理解做部分解释，详细可参考MDN）；" class="headerlink" title="三、其他命令（只是根据自己的理解做部分解释，详细可参考MDN）；"></a>三、其他命令（只是根据自己的理解做部分解释，详细可参考MDN）；</h2><p>1.ctx.arc(x, y, radius, startAng, endAng, Boolean);  </p>
-<p>&emsp;作用：画圆弧。<br>&emsp;x: 画圆弧的横坐标。<br>&emsp;y: 画圆弧的纵坐标。<br>&emsp;radius: 圆弧的半径。<br>&emsp;startAng: 起始位置的角度。<br>&emsp;endAng: 结束位置的角度。<br>&emsp;Boolean: 默认值为false,角度按顺时针计算，当为true时，则为逆时针。</p>
-<p>2.ctx.rect(x, y, width, height);<br>&emsp;作用：画长方形。</p>
-<p>3.ctx.translate(x, y);<br>&emsp;作用：移动canvas的坐标位置。<br>&emsp;canvas的坐标默认在（0，0）位置，通过translate(100, 100)，将坐标移动到原坐标的（100，100），后续的操作以移动后的坐标为准。如图所示：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/B137EF6FD4C04DCF869BBE4721F40E8E?method=download&shareKey=f9b81ee34ab52cbffff3e9df4062ffb9" alt="canvas-translate"></p>
-<p>4.ctx.rotate(x, y)；<br>&emsp;作用：旋转canvas的坐标。<br>&emsp;canvas的坐标默认是x轴为水平方向，y轴为垂直方向,通过ctx.rotate(ang)可以旋转坐标的方向。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/228C32EC3009479B9634E70F44026AE8?method=download&shareKey=487215ece0fe850fb184f2323418b79a" alt="canvas-rotate"></p>
-<p>5.ctx.font：字号和字体；默认是”10px sans-self”<br>6.ctx.textBaseLine：文字的垂直对齐方式<br>7.ctx.textAlign：文字的水平对齐方式<br>8.ctx.fillText(‘textContent’, x, y); 填充文字的内容和起始位置<br>9.ctx.lineWidth：绘制路径的宽度<br>10.ctx.lineCap：绘制路路径两端的形状：round为圆头<br>11.ctx.createRadialGradient();<br>12.ctx.strokeStyle：属性：color, grad, pattern<br>13.ctx.moveTo();</p>
-<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>理解绘制的原理是理解和运用canvas的关键，理解他是由哪些部分组成，如何实现，才能更好地运用到实践中去，靠理解而不是记忆。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">展开全文 >></a>
         </p>
       
 
