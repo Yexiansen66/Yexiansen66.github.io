@@ -152,6 +152,79 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-手写call、apply、bind" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/24/%E6%89%8B%E5%86%99call%E3%80%81apply%E3%80%81bind/">手写call、apply、bind</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/24/%E6%89%8B%E5%86%99call%E3%80%81apply%E3%80%81bind/" class="archive-article-date">
+  	<time datetime="2021-03-24T03:33:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此篇文章仅用来记录学习的手写call,apply和bind</p>
+<h2 id="Call"><a href="#Call" class="headerlink" title="Call"></a>Call</h2><blockquote>
+<p> Function.prototype.myCall = function(context){<br>&emsp;if(typeof this !== ‘function’) {<br>&emsp;&emsp;throw new Error(‘Error’);<br>&emsp;}<br>&emsp;context = context || window;<br>&emsp;context.fn = this;<br>&emsp;var args = Array.prototype.slice.call(arguments, 1);<br>&emsp;var result = context.fn(…args)<br>&emsp;delete context.fn;<br>&emsp;return result;<br>    }</p>
+</blockquote>
+<h2 id="Apply"><a href="#Apply" class="headerlink" title="Apply"></a>Apply</h2><blockquote>
+<p>Function.prototype.myApply = function (context) {<br>&emsp;if(typeof this !== ‘function’) {<br>&emsp;&emsp;throw new Error(“Error”)<br>&emsp;}<br>&emsp;context = context || window;<br>&emsp;context.fn = this;<br>&emsp;var result;<br>&emsp;if(arguments[1]){<br>&emsp;&emsp;result = context.fn(…arguments[1])<br>&emsp;}else {<br>&emsp;&emsp;result = context.fn();<br>&emsp;}<br>&emsp;delete context.fn;<br>&emsp;return result;<br>    }</p>
+</blockquote>
+<h2 id="Bind"><a href="#Bind" class="headerlink" title="Bind"></a>Bind</h2><blockquote>
+<p>Function.prototype.myBind = function(context) {<br>&emsp;if(typeof this !== ‘function’) {<br>&emsp;&emsp;throw new Error(‘Error’);<br>&emsp;}<br>&emsp;var self = this;<br>&emsp;var args = Array.prototype.slice.call(arguments, 1);<br>&emsp;var bound = function () {<br>&emsp;&emsp;var bindArgs = Array.prototype.slice.call(arguments);<br>&emsp;&emsp;return self.apply(this instanceof bound ? this : context, args.concat(bindArgs));<br>&emsp;}<br>&emsp;var fn = function() {};<br>&emsp;fn.prototype = self.prototype;<br>&emsp;bound.prototype = new fn();<br>&emsp;return bound;<br>    }</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>此文仅用来记录学习的手写call，apply 和 bind 函数</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/24/%E6%89%8B%E5%86%99call%E3%80%81apply%E3%80%81bind/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浅克隆与深克隆" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1002,121 +1075,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Flex-布局（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/">Flex 布局（一）</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-18T12:42:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一、什么是Flex布局"><a href="#一、什么是Flex布局" class="headerlink" title="一、什么是Flex布局"></a>一、什么是Flex布局</h2><p>Flex 是 Flexible Box 的缩写，是“弹性布局”的意思，为盒模型的布局提供了灵活性。</p>
-<p>flex可以应用在任何一个容器上；</p>
-<blockquote>
-<p>.box {<br>&emsp;display: flex;<br>}</p>
-</blockquote>
-<p>行内元素也可以使用Flex布局。</p>
-<blockquote>
-<p>.box {<br>&emsp;display: inline-block;<br>}</p>
-</blockquote>
-<p>应用flex布局的元素被称为 容器（container）,容器中的子元素称作 Flex项目。<br>好比容器是教室，项目是教室内排布的桌子，桌子这个项目作为教室这个容器的子元素进行排列。</p>
-<p>容器中有很多名词，结合x,y平面坐标，分三组记忆比较好记：<br>容器有两个轴：<br>&emsp;主轴（main axis）: 默认方向为水平方向，可以理解为平面坐标系（以下称为坐标系）的x轴。<br>&emsp;交叉轴（across axis)：与主轴垂直的轴，可以理解为坐标系的y轴。</p>
-<p>主轴有起始两个位置：<br>&emsp;(main start): 主轴开始的位置，主轴与边界的左交点，可以类比坐标系的原点。<br>&emsp;(main end): 主轴结束的位置，与容器边框的另一个交点。</p>
-<p>交叉轴也有起始两个位置：<br>&emsp;(cross start): 交叉轴开始的位置，主轴与上边界的交点，可以类比坐标系的原点。<br>&emsp;(cross end): 交叉轴结束的位置，与容器下边界的交点。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/9AA927E7D77E4597B9CBA165CFC69A6A?method=download&shareKey=69cb125fce3f65e3f690570e16ec3429" alt="flexible box"></p>
-<h2 id="二、容器属性和项目属性"><a href="#二、容器属性和项目属性" class="headerlink" title="二、容器属性和项目属性"></a>二、容器属性和项目属性</h2><p>继续以教室内的桌子为例<br>容器属性 指定了桌子每排每列怎么排列，比如，排成三行四列，每行的间距是多少，每列的间距是多少。<br>项目属性 指定了某个桌子的排列方式，比如，靠前或者靠后一点，排在一排的前边还是后边。</p>
-<h3 id="1-容器属性"><a href="#1-容器属性" class="headerlink" title="1.容器属性"></a>1.容器属性</h3><p>容器有六个属性(即在父盒子上使用的属性):<br>·flex-direction<br>·flex-wrap<br>·flex-flow<br>·justify-content<br>·align-items<br>·align-content</p>
-<p>1.1 flex-direction<br>定义主轴的方向：</p>
-<blockquote>
-<p>.box {<br>&emsp;flex-direction: row | row-reverse | column | column-reverse<br>}</p>
-</blockquote>
-<p>row: 主轴方向为水平向右。<br>row-reverse: reverse是反转的意思，即主轴方向为水平向左。<br>column: 主轴方向为垂直向下。<br>column-reverse: 主轴方向为垂直向上。</p>
-<p>1.2 flex-wrap<br>默认情况下，项目都排在同一轴线上，flex-wrap 属性定义换行的方式。</p>
-<blockquote>
-<p>.box {<br>&emsp;flex-wrap: nowrap | wrap | wrap-reverse<br>}</p>
-</blockquote>
-<p>nowrap: 不换行，为默认值。<br>wrap: 如果同一轴线上排列不下，会换行。<br>wrap-reverse: 换行，并且第一行排在下面，第二行排在上面。</p>
-<p>1.3 flex-flow<br>flex-flow 是 flex-direction 和 flex-wrap 的简写。</p>
-<blockquote>
-<p>.box {<br>&emsp;flex-flow: flex-direction flex-wrap;<br>}</p>
-</blockquote>
-<p>1.4 justify-content<br>默认情况下，项目在主轴上的对齐方式。</p>
-<blockquote>
-<p>.box {<br>&emsp;justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;<br>}</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/6AD5639BE49247A892BE5FEC84D0F085?method=download&shareKey=2a056c257559df7358b416b5ed750bbd" alt="justify-content"></p>
-<p>1.5 align-items<br>定义项目在交叉轴上如何排列</p>
-<blockquote>
-<p>.box {<br>&emsp;align-items: flex-start | flex-end | center | stretch | baseline;<br>}</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/A0C30E08CAD543189FFA41EE13783753?method=download&shareKey=ff898be626a9b512a0fc06a690d31a9a" alt="align-items"></p>
-<p>1.6 align-content<br>定义了多跟轴线的在交叉轴方向的对齐方式。</p>
-<p>当容器的属性如下：</p>
-<blockquote>
-<p>.box {<br>&emsp;display: flex;<br>&emsp;flex-wrap: wrap;<br>&emsp;……<br>}</p>
-</blockquote>
-<p>会产生如下的排列效果：</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/CE793CE2B0D94E279584571D4EC791AF?method=download&shareKey=3534d7f16622384f3b04cf0db6929620" alt="flex-wrap"></p>
-<p>此时就需要 align-content 属性，调整轴线的对齐方式</p>
-<p>.box {<br>&emsp;align-content: flex-start | flex-end | center | stretch | space-between | space-around<br>}</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/5D1BF538DE3F4BEDB5DCA2D7B13887D1?method=download&shareKey=48c7b70307b3f1d6ee4c0cb19775a6d1" alt="align-content"></p>
-<h3 id="2-项目属性（下一篇文章写）"><a href="#2-项目属性（下一篇文章写）" class="headerlink" title="2.项目属性（下一篇文章写）"></a>2.项目属性（下一篇文章写）</h3><p>·order<br>·flex-grow<br>·flex-thrink<br>·flex-basis<br>·flex<br>·algin-self</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Flex(弹性布局)为盒模型的布局提供了灵活性。应用Flex的元素被称作容器，子元素被称为项目。<br>容器属性：<br>flex-direction: 定义主轴的方向；<br>flex-wrap: 定义主轴上的项目是否可以换行排列；<br>flex-flow: 是flex-direction和flex-wrap的缩写；<br>justify-content: 定义主轴上项目的排列方式；<br>align-items: 定义交叉轴上项目的排列方式；<br>align-content: 定义多根轴线的排列方式。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>1.<a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/">展开全文 >></a>
         </p>
       
 
