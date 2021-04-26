@@ -152,6 +152,73 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-同一个DIV内，两个行内块元素不能对其的原因及解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/26/%E5%90%8C%E4%B8%80%E4%B8%AADIV%E5%86%85%EF%BC%8C%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E4%B8%8D%E8%83%BD%E5%AF%B9%E5%85%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">同一个DIV内，两个行内块元素不能对其的原因及解决方案</a>
+    </h1>
+  
+
+        
+        <a href="/2021/04/26/%E5%90%8C%E4%B8%80%E4%B8%AADIV%E5%86%85%EF%BC%8C%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E4%B8%8D%E8%83%BD%E5%AF%B9%E5%85%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="archive-article-date">
+  	<time datetime="2021-04-26T11:37:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天在敲代码的时候，遇到这样的问题，同一个div内的几个块元素，无论如何也不能对齐，只好通过某度找到了答案。</p>
+<p>在CSS2中的可视化格式模型文档中可知：<br>inline-block 的基线是正常流中最后一个 line box 的基线，除非这个line box 里面既没有 line box 或者本身 overflow 属性的计算不是 visible，这种情况下，基线是margin底边缘。</p>
+<p>通俗的讲就是，div中的行内块元素，</p>
+<p>当行内块中有文字的时候，以文字的基线对齐；<br>行内块中没有文字的时候，是以margin地边缘对齐。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.codeprj.com/blog/7b5e851.html">同一DIV内，两个行内块元素不对齐的解决方案</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/26/%E5%90%8C%E4%B8%80%E4%B8%AADIV%E5%86%85%EF%BC%8C%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E4%B8%8D%E8%83%BD%E5%AF%B9%E5%85%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-手写call、apply、bind" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -182,7 +249,7 @@
 <h2 id="Bind"><a href="#Bind" class="headerlink" title="Bind"></a>Bind</h2><blockquote>
 <p>Function.prototype.myBind = function(context) {<br>&emsp;if(typeof this !== ‘function’) {<br>&emsp;&emsp;throw new Error(‘Error’);<br>&emsp;}<br>&emsp;var self = this;<br>&emsp;var args = Array.prototype.slice.call(arguments, 1);<br>&emsp;var bound = function () {<br>&emsp;&emsp;var bindArgs = Array.prototype.slice.call(arguments);<br>&emsp;&emsp;return self.apply(this instanceof bound ? this : context, args.concat(bindArgs));<br>&emsp;}<br>&emsp;var fn = function() {};<br>&emsp;fn.prototype = self.prototype;<br>&emsp;bound.prototype = new fn();<br>&emsp;return bound;<br>    }</p>
 </blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>此文仅用来记录学习的手写call，apply 和 bind 函数</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>此文仅用来记录学习的手写call，apply 和 bind 函数。</p>
 
       
 
@@ -947,134 +1014,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/02/25/%E6%B5%85%E8%B0%88this/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Flex-布局（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">Flex-布局（二）</a>
-    </h1>
-  
-
-        
-        <a href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-22T01:21:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上一篇写了Flex的容器属性，这一篇写一写Flex的项目属性。</p>
-<h2 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h2><p>·order<br>·flex-grow<br>·flex-shrink<br>·flex-basis<br>·flex<br>·align-item</p>
-<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>定义项目的排列属性，数值越小，排列越靠前，默认为0。</p>
-<blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>&emsp;height: 120px;<br>&emsp;justify-content: space-around;<br>&emsp;align-items: center;<br>    }<br>  .first, .second, .third {<br>&emsp;width: 100px;<br>&emsp;height: 80px;<br>&emsp;font-size: 24px;<br>&emsp;color: white;<br>&emsp;text-align: center;<br>    }<br>  .first {<br>&emsp;background-color: red;<br>    }<br>  .second {<br>&emsp;background-color: green;<br>    }<br>  .third {<br>&emsp;background-color: skyblue;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/2D402208E727484A910C2B6F3792DD36?method=download&shareKey=4042b8f91f69a1b518fe3ca68e108afa" alt="order"></p>
-<p>当给项目设置为数值大小,将A，B，C按照C，B，A排序。</p>
-<blockquote>
-<p>.first {<br>&emsp;background-color: red;<br>&emsp;order: 2;<br>}<br>.second {<br>&emsp;background-color: green;<br>&emsp;order: 1;<br>}</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/12005AC5474D4CC6B5A81487756C75B1?method=download&shareKey=65f74b25dbf64f6dfc1e0ea300481dbc" alt="order-reverse"></p>
-<h3 id="flex-grow-amp-amp-flex-shrink"><a href="#flex-grow-amp-amp-flex-shrink" class="headerlink" title="flex-grow &amp;&amp; flex-shrink"></a>flex-grow &amp;&amp; flex-shrink</h3><h3 id="flex-grow-属性是定义剩余空间如何分配"><a href="#flex-grow-属性是定义剩余空间如何分配" class="headerlink" title="flex-grow 属性是定义剩余空间如何分配"></a>flex-grow 属性是定义剩余空间如何分配</h3><p><img src="https://note.youdao.com/yws/api/personal/file/1950062478A84317B1B11B442C6D8B96?method=download&shareKey=b1d272e8894dfaaa84c8a82db7d90cc7" alt="剩余空间"></p>
-<p>被子盒子占有的空间为占有空间，粉色的空出的空间就是剩余空间，<br>flex-grow 的默认值为0，即不瓜分剩余空间。<br>flex-grow 的计算公式：<br>剩余空间：x;<br>A,B,C三个子元素的flex-grow的值是：a, b, c<br>每个子元素瓜分的剩余空间为：a/(a+b+c)*x, b/(a+b+c)*x, c/(a+b+c)*x</p>
-<blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;height: 100px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>    }<br>    .container &gt; div {<br>&emsp;height: 50px;<br>    }<br>    .a {<br>&emsp;background-color: green;<br>&emsp;width: 50px;<br>&emsp;flex-grow: 1;<br>    }<br>    .b {<br>&emsp;background-color: red;<br>&emsp;width: 100px;<br>&emsp;flex-grow: 2;<br>    }<br>    .c {<br>&emsp;background-color: skyblue;<br>&emsp;width: 150px;<br>&emsp;flex-grow: 3;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/E90EFE1E8E1345CFBBD6C443302544AD?method=download&shareKey=556b644719553a8196511bcd843c134f" alt="flex-grow"></p>
-<p>如上例子，剩余空间宽度为 400-（50+100+150）=100px;A元素所瓜分的剩余空间：1 /(1+2+3)*100 = 16.67,总宽度为占有宽度加瓜分的剩余宽度：50+16.67=66.67。</p>
-<p>当子元素的flex-grow值的和小于1时，没有瓜分全部的剩余空间，计算公式的分母改为1。<br>假如容器宽度为400px,项目A,B,C三个元素的宽度为100px,A,B,C的flex-grow值分别为0.1, 0.2, 0.3,则A容器的宽度为：0.1/1 * (400 - 300) + 100 = 110px。</p>
-<blockquote>
-<p>  .container {<br>&emsp;width: 400px;<br>&emsp;height: 100px;<br>&emsp;background-color: pink;<br>&emsp;display: flex;<br>    }<br>    .container &gt; div {<br>&emsp;height: 50px;<br>    }<br>    .a {<br>&emsp;width: 100px;<br>&emsp;background-color: green;<br>&emsp;flex-shrink: 1;<br>    }<br>    .b {<br>&emsp;width: 200px;<br>&emsp;background-color: red;<br>&emsp;flex-shrink: 2;<br>    }<br>    .c {<br>&emsp;width: 300px;<br>&emsp;background-color: skyblue;<br>&emsp;flex-shrink: 3;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/6DB32141CCC14F1198E334768F86B34D?method=download&shareKey=198de8f243fb42c039e00c2550ef93ba" alt="flex-grow&lt;1"></p>
-<h3 id="flex-shrink-是对溢出空间进行处理"><a href="#flex-shrink-是对溢出空间进行处理" class="headerlink" title="flex-shrink 是对溢出空间进行处理."></a>flex-shrink 是对溢出空间进行处理.</h3><p>当子元素的总长度大于父元素的长度时，子元素就会溢出，如图中的蓝色部分。<br><img src="https://note.youdao.com/yws/api/personal/file/ADA9898DA33F4AF7886A65F35F8CDDF7?method=download&shareKey=61e7fa64d83dac00c691210bf6f69ef0" alt="溢出空间"></p>
-<p>flex-shrink 的默认值为0，即不进行压缩。<br>flex-shrink 计算方式：<br>假设容器的宽度为400px，有A,B,C三个元素，宽度为100px，200px，300px,flex-shrink的值分别为：1，2，3。<br>溢出空间宽度：x (子元素宽度总和减去父元素的宽度) = (100+200+300) - 400 = 200;<br>压缩率：sum = 100*1+200*2+300*3 = 1400。<br>A的压缩率为：sum1 = 100*1/1400。<br>A压缩的宽度等于溢出空间宽度乘以压缩率：200 * (100*1/1400)。<br>A的宽度：100-200*(100*1/1400)=85.72。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/DB86F970AF2C434180B1AB1FB16171E5?method=download&shareKey=59ff49f0835879c4498e14c411143791" alt="flex-shrink&lt;0"></p>
-<p>当flex-shrink的总和小于1时，例如：容器的宽度为400px,项目A,B,C的宽度分别为：100px, 200px, 300px；flex-shrink值分别为：0.1, 0.2, 0.3。<br>此时溢出空间并没有全部被压缩，被压缩的宽度为：（0.1+0.2+0.3)/1 * （600-400）=120。<br>压缩率为：sum = 0.1*100+0.2*200+0.3*300 = 140。<br>A的压缩宽度为：0.1 * 100 / 140 * 120 = 8.571。<br>A压缩后的宽度为：100-8.751 = 91.43(图片显示为91.42,应该是与四舍五入有关,如果错误，请指正)。</p>
-<p><img src="https://note.youdao.com/yws/api/personal/file/005AEBDAD6E541EDB179AA181556F6D4?method=download&shareKey=cf65b2acea2f58d12ae914ad0f34a4f4" alt="flex-shrink"></p>
-<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h3><p>flex-basis 在MDN上的解释是：指定了flex元素在主轴方向上的初始大小。<br>例如，设置项目的flex-basis: 200px，就是在项目没有放进容器的时候，宽度是200px，当项目被放到容器中时，会受到容器的宽度，flow-grow,flow-shrink等属性的影响，如果不受到这些属性的影响，放在项目中的宽度与flex-basis的初始值相同。</p>
-<p>flex-basis的基本使用：</p>
-<blockquote>
-<p>.container {<br>&emsp;display: flex;<br>&emsp;width: 400px;<br>&emsp;border: 3px solid #000;<br>    }<br>    .item {<br>&emsp;flex-basis: 100px;<br>&emsp;height: 100px;<br>    }<br>    .green {<br>&emsp;background-color: green;<br>    }<br>    .purple {<br>&emsp;background-color: purple;<br>    }<br>    .yellow {<br>&emsp;background-color: yellow;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/3B81033BA9824BDA89625B86F5325112?method=download&shareKey=f978d987291b6cde7dd54898192a0495" alt="flex-basis"></p>
-<p>给项目添加flex-grow属性：</p>
-<blockquote>
-<p>.item {<br>&emsp;flex-basis: 100px;<br>&emsp;height: 100px;<br>&emsp;flex-grow: 1;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/3AEB90D79AC349CD9C83588927478EB3?method=download&shareKey=57a2ca510064093fbf4a3942eab376ac" alt="flex-basis"></p>
-<p>flex-grow属性改变剩余空间的分配，也改变了项目的宽度。</p>
-<p>flex-basis属性与width的关系：</p>
-<blockquote>
-<p>.container {<br>&emsp;width: 400px;<br>&emsp;border: 3px solid #000;<br>&emsp;display: flex;<br>    }<br>    .item {<br>&emsp;height: 100px;<br>&emsp;flex-basis: 100px;<br>    }<br>    .green {<br>&emsp;width: 200px;<br>&emsp;background-color: green;<br>    }<br>    .red {<br>&emsp;background-color: red;<br>    }<br>    .blue {<br>&emsp;background-color: blue;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/29207FB423E74AC6BB1D1B724E98B613?method=download&shareKey=c115472e67f9bb17aff7a18a276939ee" alt="width|flex-basis"></p>
-<p>项目的flex-basis设置为100px，green项目的width设置为200px，项目的width属性被忽略时，显示仍为100px,所以项目的flex-basis属性的优先级高于width。</p>
-<p>修改green项目属性为max-width:</p>
-<blockquote>
-<p>.green {<br>&emsp;max-width: 50px;<br>&emsp;background-color: green;<br>    }</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/2B647EB3162F42D5892DB2980EE30BB0?method=download&shareKey=f5d8cd634613181a6c28d8edd03dcb1d" alt="max-width"></p>
-<p>由此可见，max-width属性的优先级大于flex-basis。</p>
-<p>修改green项目属性为min-width:</p>
-<blockquote>
-<p>.green {<br>  &emsp;min-width: 150px;<br>  &emsp;background-color: green;<br>}</p>
-</blockquote>
-<p><img src="https://note.youdao.com/yws/api/personal/file/99D7649AE4D542E0993D369FD65DDE5C?method=download&shareKey=2f33700a4d98d2dd01079495d8db40bb" alt="min-width"></p>
-<p>由此可见，min-width属性的优先级大于flex-basis。</p>
-<p>综上所述，几个属性的优先级排列为：max-width/min-width &gt; flex-basis &gt; width。</p>
-<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>是flex-grow,flex-shrink,flex-basis的缩写。</p>
-<blockquote>
-<p>.box {<br>&emsp;flex: flex-grow | flex-shrink | flex-basis;<br>}</p>
-</blockquote>
-<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>定义单个项目的对齐方式，可以覆盖align-items属性，默认值为auto,表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。<br>.item {<br>  align-self: auto | flex-start | flex-end | center | baseline | stretch<br>}<br><img src="https://note.youdao.com/yws/api/personal/file/8A4CD93BFA844750BCAE5CA4E08D3DC1?method=download&shareKey=6d1e77f426e7101c9fd64caa625c73e7" alt="align-self"></p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis">https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-basis</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904016439148551">https://juejin.cn/post/6844904016439148551</a><br><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">展开全文 >></a>
         </p>
       
 
