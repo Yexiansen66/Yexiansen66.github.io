@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>2021.6.21 学习笔记&#39; | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="事件冒泡与事件委托的对比事件冒泡： box内部无论是什么元素，点击后都会触发box的点击事件事件委托： 可以对box内部的元素进行帅选 闭包的理解 概念：闭包就是能够读取其他函数内部变量的函数三大特性： 函数嵌套函数函数内部可以引用外部的参数和变量参数和变量不会被垃圾回收机制回收 优点：    希望一个变量长期储存在内存中    避免全局变量的污染    私有成员的存在缺点：    常驻内存，增加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021.6.21 学习笔记&#39;">
+<meta property="og:url" content="http://example.com/2021/06/21/2021-6-21-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="事件冒泡与事件委托的对比事件冒泡： box内部无论是什么元素，点击后都会触发box的点击事件事件委托： 可以对box内部的元素进行帅选 闭包的理解 概念：闭包就是能够读取其他函数内部变量的函数三大特性： 函数嵌套函数函数内部可以引用外部的参数和变量参数和变量不会被垃圾回收机制回收 优点：    希望一个变量长期储存在内存中    避免全局变量的污染    私有成员的存在缺点：    常驻内存，增加">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-21T15:31:08.000Z">
+<meta property="article:modified_time" content="2021-06-21T15:37:12.965Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -150,181 +154,177 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2021-6-21-学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      2021.6.21 学习笔记&#39;
+    </h1>
+  
+
+        
+        <a href="/2021/06/21/2021-6-21-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2021-06-21T15:31:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-06-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事件冒泡与事件委托的对比<br>事件冒泡： box内部无论是什么元素，点击后都会触发box的点击事件<br>事件委托： 可以对box内部的元素进行帅选</p>
+<p>闭包的理解</p>
+<p>概念：闭包就是能够读取其他函数内部变量的函数<br>三大特性：</p>
+<p>函数嵌套函数<br>函数内部可以引用外部的参数和变量<br>参数和变量不会被垃圾回收机制回收</p>
+<p>优点：<br>    希望一个变量长期储存在内存中<br>    避免全局变量的污染<br>    私有成员的存在<br>缺点：<br>    常驻内存，增加内存使用量。<br>    使用不当胡很容易造成内存泄漏</p>
+<p>闭包是将函数内部和函数外部连接起来的桥梁</p>
+<p>new 一个对象的过程中发生了什么<br>创建一个对象<br>将对象的__proto__指向构造函数的原型<br>将this指向对象，并赋予对象属性和方法<br>返回对象</p>
+<p>Object.keys() 方法会返回一个由一个给给定对象的自身可枚举属性组成的数组，<br>数组中属性名的排列顺序和正常循环遍历对象时返回的顺序一致。<br>一个表示给定对象的所有可枚举属性的字符串数组。</p>
+<p>每一个对象实例都可以通过constructor对象来访问它的构造函数。<br>JS中内置了一些构造函数：Object、Array、Function、Date、RegExp、String等、<br>我们可以通过数据的constructor是否与其构造函数相等来判断数据的类型</p>
+<p>for in, Object.keys 和 Object.getOwnPropertyNames 对属性遍历有甚区别<br>for in 会遍历自身及原型链上的可枚举属性<br>Object.keys 会将对象自身的可枚举属性的key返回一个字符串数组<br>Object.getOwnPropertyNames 会将自身所有的属性的key输出</p>
+<p>ESMAscript 将对象的属性分为两种： 数据属性和访问器属性。</p>
+<p>Object.prototype.toString.call()<br>优点：这种方法对于所有基本的数据类型都能进行判断，即使是 null 和 undefined 。<br>缺点：不能精准判断自定义对象，对于自定义对象只会返回[object Object]<br>instanceOf<br>优点：instanceof 可以弥补 Object. prototype. toString. call()不能判断自定义实例化对象的缺点。<br>缺点： instanceof 只能用来判断对象类型，原始类型不可以。并且所有对象类型 instanceof Object 都是 true，且不同于其他两种方法的是它不能检测出 iframes。<br>Array. isArray()<br>优点：当检测 Array 实例时，Array. isArray 优于 instanceof ，因为 Array. isArray 可以检测出 iframes<br>缺点：只能判别数组</p>
+<p>严格模式使用”use strict”;</p>
+<p>作用：</p>
+<p>消除 Javascript 语法的一些不合理、不严谨之处，减少一些怪异行为;<br>消除代码运行的一些不安全之处，保证代码运行的安全；<br>提高编译器效率，增加运行速度；<br>为未来新版本的 Javascript 做好铺垫。</p>
+<p>简述重排的概念<br>浏览器下载完页面中的所有组件（HTML、JavaScript，CSS，图片）之后会 解析生成两个内部数据结构（DOM树和渲染树），DOM树表示页面结构，渲染树表示DOM节点如何显示。<br>重排是DOM元素的几何属性变化，DOM树的结构变化，渲染树需要重新计算。<br>简述重绘的概念<br>重绘是一个元素外观的改变所触发的浏览器行为，例如改变visibility,outline,背景色等属性。<br>浏览器会根据元素属性重新绘制，使元素呈现新的外观。由于浏览器的流布局，对渲染树的计算只需要遍历一次就可以完成、</p>
+<p>重绘不会引起重排<br>重排一定会引起重绘</p>
+<p>兼容各种版本浏览器版本的事件绑定<br>function addEvent(ele, element, fun) {<br>    if(ele.addEventListener) {<br>        ele.addEventListener(eventName, fun, false);<br>    } else {<br>        ele.attachEvent(‘on’ + eventName, fun);<br>    }<br>}<br>css动画和js动画de chayi<br>1.代码复杂度，js动画代码相对复杂一些<br>2.动画运行时，对动画的控制程度上，js能够让动画暂停，取消，终止，css动画不能添加事件<br>3.动画性能看，js动画多了一个js解析的过程，性能不如css动画好</p>
+<p>abc三个元素都是先注册冒泡事件，再注册捕获事件，当我们点击c的时候，执行结果又是如何</p>
+<p>从执行结果可以看到，a,b两个元素的事件响应都是先捕获后冒泡的，但对于触发事件的目标元素c<br>事件的响应并没有先遵循先捕获后冒泡的规则，这是为什么，<br>因为目标元素是事件触发主体处于事件流中的目标阶段，处理事件的顺序是根据注册顺序来执行的</p>
+<p>事件代理（事件委托）<br>事件代理就是利用事件冒泡或事件捕获机制把一些列的内层元素事件绑定到外层元素。</p>
+<p>DOM事件流有三个阶段：捕获阶段，目标阶段，冒泡阶段<br>三个阶段的顺序为：捕获阶段-目标阶段-冒泡阶段</p>
+<p>用户触发一个事件，如点击事件，肯定是用window对象开始的，所以自然就是先捕获后冒泡。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/25/%E6%B5%85%E8%B0%88this/" class="archive-article-date">
-  	<time datetime="2021-02-25T07:48:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/25/%E6%B5%85%E8%B0%88this/">this 的指向问题</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/06/21/2021-6-21-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-22T01:21:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/04/26/%E5%90%8C%E4%B8%80%E4%B8%AADIV%E5%86%85%EF%BC%8C%E4%B8%A4%E4%B8%AA%E8%A1%8C%E5%86%85%E5%9D%97%E5%85%83%E7%B4%A0%E4%B8%8D%E8%83%BD%E5%AF%B9%E5%85%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">同一个DIV内，两个行内块元素不能对其的原因及解决方案</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/22/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">Flex-布局（二）</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/" class="archive-article-date">
-  	<time datetime="2021-02-18T12:42:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/18/Flex-%E5%B8%83%E5%B1%80%EF%BC%88%E4%B8%80%EF%BC%89/">Flex 布局（一）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2021-02-14T10:24:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/14/canvas%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">canvas的一些理解</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94hexo%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-  	<time datetime="2021-02-13T02:10:00.101Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-13</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/13/hello-world/" class="archive-article-date">
-  	<time datetime="2021-02-13T01:41:35.583Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/13/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -348,8 +348,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
