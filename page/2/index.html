@@ -152,6 +152,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-原型与原型链" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/27/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">原型与原型链</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/27/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="archive-article-date">
+  	<time datetime="2021-02-27T06:45:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天讲一讲原型和原型链，曾经也是困扰我许久的问题，如今通过学习和梳理，形成了一定的认识，在这里分享一下，如果有错误和不足，还请指出。</p>
+<h2 id="什么是原型"><a href="#什么是原型" class="headerlink" title="什么是原型"></a>什么是原型</h2><p>红宝书上是这么定义原型的：</p>
+<blockquote>
+<p>我们创建的每个函数都有一个prototype（原型）属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性方法。如果按照字面意思来理解，那么prototype就是通过调用构造函数而创建的那个对象实例的原型对象。</p>
+</blockquote>
+<p>每当我们创建一个函数的时候，就会产生一个prototype指针，指向该函数的原型对象，原型上的属性与方法 可以被 通过函数创建出来的实例 所共享。如下图的关系：<br><img src="https://note.youdao.com/yws/api/personal/file/3FA04ADC12874562A230BA544D6E214B?method=download&shareKey=168a4784d7a852fa1aa86927c5600a04" alt="prototype-1"></p>
+<blockquote>
+<p>function Person() {}<br>Person.prototype.name = ‘yexiansen’;<br>Person.prototype.age = 18;<br>Person.prototype.sayAge = function () {<br>&emsp;console.log(this.age);<br>    }<br>    const person = new Person();<br>    console.log(person.name); //yexiansen<br>    person.sayAge(); //18<br>如上列所示，通过构造函数 Person() 创建实例 person，person本身并未定义 name, age 属性和 sayAge 方法，在 Person 的原型对象上定义这些属性，person 对象打印 name 属性和调用 sayAge 方法都有效，因此证明 person 对象可以从构造函数的原型上继承属性和方法。</p>
+</blockquote>
+<p>再来讲一下constructor属性，原型对象会自动获得一个constructor属性，如下图所示：<br><img src="https://note.youdao.com/yws/api/personal/file/E571ADE64AB046018C6EE2DC2B427A06?method=download&shareKey=9c0004b13314711146d4f214b4e31013" alt="prototype-2"></p>
+<p>图中可以看出 Person 原型的 constructor 属性是一个指向 prototype 属性所在函数的指针，即 Person.prototype.contructor === Person，打印看下结果：<br><img src="https://note.youdao.com/yws/api/personal/file/CD137AA89F8A4A788A27FA259E494A9D?method=download&shareKey=c86c53a3d35f2abf53eba51eed4faac9" alt="prototype-3"></p>
+<p>更新一下图片：<br><img src="https://note.youdao.com/yws/api/personal/file/C96C97E3336C4643A5036AE9D99F4691?method=download&shareKey=6517481e051208b5556bf494b10bc789" alt="prototype-4"></p>
+<p>当调用构造函数创建一个实例后，该实例的内部包含一个指针__proto__，指向构造函数的原型对象。打印 person.__proto__ === Person.prototype:<br><img src="https://note.youdao.com/yws/api/personal/file/4F24044BB42F44D58411B7E05681E329?method=download&shareKey=358f6b8fcd71f428b795cd0ddc8bd0a7" alt="-5"></p>
+<p>更新一下图片：<br><img src="https://note.youdao.com/yws/api/personal/file/E02318EF0D6A49478CD500A1377BD55D?method=download&shareKey=89c817bd2f8d1b5c2d2e1bc97045ee11" alt="-6"></p>
+<p>写到这里，构造函数，原型对象和实例的关系就构建出来了，总结一下：<br>1.创建一个函数的时候会产生一个prototype属性，指向函数的原型。<br>2.原型中有constructor属性，指向prototype属性所在的函数。<br>3.通过构造函数生成的实例对象，有个隐性指针__proto__指向该构造函数的原型对象。</p>
+<h2 id="原型的原型是什么"><a href="#原型的原型是什么" class="headerlink" title="原型的原型是什么"></a>原型的原型是什么</h2><p>还是以上面person为例，person.__proto__ 指向构造函数 Person 的原型 Person.prototype, 因此Person 的原型对象，Person.prototype.__proto__ 指向某一构造函数的原型，如图所示：<br><img src="https://note.youdao.com/yws/api/personal/file/4A23F1E7DE4A4FF1A86D21846FA4B320?method=download&shareKey=18e7a788a695670cd0f538823774e6cf" alt="-7"></p>
+<p>打印 Person.prototype.__proto__ 结果：<br><img src="https://note.youdao.com/yws/api/personal/file/160EE16DA1884DA9AE2BDA1064ED818F?method=download&shareKey=9d657869908a527a7019632c1d008293" alt="-8"></p>
+<p>Person.prototype.__proto__ 对象中的 constructor 属性指向 Object 函数，因此，Person 原型对象的 __proto__ 属性指向 Object构造函数的prototype<br><img src="https://note.youdao.com/yws/api/personal/file/FD85FF48B08D438A9D98F3438EE79CF9?method=download&shareKey=eef8b6c9e6f4ad607e64ed376933647b" alt="-9"></p>
+<p>更新一下图片：<br><img src="https://note.youdao.com/yws/api/personal/file/1F8B3E65D77948258B18A0A9964A33BC?method=download&shareKey=ea3c94082d5b9d3f8627c2434b602d10" alt="-10"></p>
+<p>那么 Object 原型 __proto__ 是什么，打印一下：<br><img src="https://note.youdao.com/yws/api/personal/file/D691D90432FB488F9F343638E4370FB2?method=download&shareKey=3ab08f8880f05730c637e4c3b6d298be" alt="-11"></p>
+<p>更新一下图片：<br><img src="https://note.youdao.com/yws/api/personal/file/11BA1545AF684AC5BDC3C14198858D6A?method=download&shareKey=bbfff26dab75b829d7a7706aded054ef" alt="-12"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于原型对象的理解结合图示能更清晰的表达之间的逻辑关系，有利于理解，以上是我对原型与原型链的理解，希望对大家有些帮助。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>《JavaScript高级程序设计（第三版）》</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/02/27/%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浅谈this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
